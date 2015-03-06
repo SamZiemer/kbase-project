@@ -7,6 +7,7 @@ jq.onload = proceed;
 function proceed() {
 	getServerInfo();
 	addLinksToArray();
+	var supportMatrix = dataArray[0]
 	var dataBase = dataArray[3].split(' ')[0];
 	dataArray[4] = dataArray[4].replace(' ', '+');
 	var componentSearch = 'https://dev.liferay.com/discover/deployment?p_p_id=3&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_3_struts_action=%2Fsearch%2Fsearch&_3_redirect=%2Fdiscover%2Fdeployment%2F-%2Fknowledge_base&_3_keywords='+dataArray[4]+'&_3_groupId=10184';
@@ -28,14 +29,17 @@ function proceed() {
 		var link = '';
 		switch (i) {
 			case 0:
+				var temp = dataArray[0]
 				if (dataArray[0].indexOf('2') > -1){
 					link = 'https://www.liferay.com/documents/14/21598941/Liferay+Portal+6.2+EE+Compatibility+Matrix.pdf/3b3fd878-c954-4acc-bd5f-19fb7eb78210';
 				} else {
 					link = 'https://www.liferay.com/documents/14/21598941/Liferay+Portal+6.1+EE+Compatibility+Matrix.pdf/fb724548-0d8d-408f-ad01-5acd862c038a';
 				}
 				break;
+
 			case 1:
 				var link = 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/';
+				var temp = dataArray[3]
 				switch(dataBase) {
 					case "Oracle":
 						link += '31478';
@@ -62,33 +66,33 @@ function proceed() {
 				break;
 			case 2:				
 				link = getLink(dataArray[2]);
+				var temp = dataArray[2];
 				break;
 			case 3:
 				link = componentSearch;
+				var temp = "Search KBASE: " + dataArray[4];
 				break;
 		}
 
 		a = document.createElement('a');
-		a.href=link;
-		a.text = "SubMenu Item " + i;
+		a.href = link;
+		a.text = temp;
 		a.target = '_blank';
 		li = document.createElement('li');
 		li.appendChild(a);
 		subMenu[i].appendChild(li);
+
 		if ((categoryNames[i].indexOf('tall') > -1)) {
 			link = "https://www.liferay.com/community/wiki/-/wiki/Main/Database+Portal+Properties";
 			a = document.createElement('a');
-			a.href=link;
-			a.text = "SubMenu Item " + i;
+			a.href = link;
+			a.text = "Database Setup";
 			a.target = '_blank';
 			li = document.createElement('li');
 			li.appendChild(a);
 			subMenu[i].appendChild(li);
 		}
 		
-		if (i == 1) {
-			a.text = dataBase;
-		}
 		outterDiv[i].appendChild(menuItem[i]);
 		outterDiv[i].appendChild(subMenu[i]);
 	}
@@ -289,7 +293,7 @@ var outterDiv = [];
 var menuItem = [];
 var subMenu = [];
 var categoryNames = [
-	"Compatability Matrix",
+	"Compatibiltiy Matrix",
 	"Support Policies",
 	"Installation",
 	"Troubleshooting"

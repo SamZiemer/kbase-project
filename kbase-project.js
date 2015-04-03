@@ -12,7 +12,7 @@ function proceed() {
 	getLinks();
 	floatMenu.id = "floatMenu";
 
-	for (var i = 0; i < 5; i++) {
+	for (var i = 0; i < 6; i++) {
 		outterDiv[i] = document.createElement('div');
 
 		menuItem[i] = document.createElement('div');
@@ -88,6 +88,17 @@ function proceed() {
 					subMenu[i].appendChild(li);
 				}
 				break;
+			case 5:
+				for (var j = 0; j < hotFixLinks.length; j++) {
+					a = document.createElement('a');
+					a.href = hotFixLinks[j].link;
+					a.text = hotFixLinks[j].name;
+					a.target = '_blank';
+					li = document.createElement('li');
+					li.appendChild(a);
+					subMenu[i].appendChild(li);
+				}
+				break;
 		}
 
 		outterDiv[i].appendChild(menuItem[i]);
@@ -98,7 +109,7 @@ function proceed() {
 
 	listDiv.className = "menuList";
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < 6; i++) {
 		listDiv.appendChild(outterDiv[i]);
 	}
 
@@ -221,8 +232,41 @@ function proceed() {
 				dataArray[dataArray.length] = serverType(javaText, typeNode);
 				typeNode = A.all(".callout-content");
 				dataArray[dataArray.length] = serverType(componentText, typeNode);
+				dataArray[dataArray.length] = getCustomerId();
 			}
 		);
+	}
+
+	function getCustomerId() {
+		var customerId = document.getElementsByTagName("title")[0].innerHTML;
+
+		var tempVar = customerId.split("[");
+		customerId = tempVar[1].split("-");
+
+		return customerId[0];
+	}
+
+	function getHotFixLinks() {
+
+		var customerId = dataArray[7];
+		var version = dataArray[0];
+
+		if (version.indexOf("6.1")) {
+
+			console.log(version);
+			console.log(customerId);
+			//find from server
+		}
+
+		if (version.indexOf("6.2")) {
+
+			console.log(version);
+			console.log(customerId);
+
+			//findBy_customerId;
+			//find from patcher
+		}
+
 	}
 
 	function getLinks() {
@@ -233,12 +277,14 @@ function proceed() {
 			java = dataArray[5].split(" ")[0],
 			os = dataArray[1].split(" ")[0];
 
+
 		for (var i = 0; i < arrayOfMaps.length; i++) {
 			var map = arrayOfMaps[i];
 			var install = [];
 			var supportPolicy = [];
 			var troubleShoot = [];
 			var supportForums = [];
+			var hotFixes = [];
 
 			switch (i) {
 				case 0:
@@ -354,6 +400,10 @@ function proceed() {
 					}
 					break;
 				case 5:
+						getHotFixLinks();
+
+					break;
+				case 6:
 					if (os in map) {
 						if (map[os][0] !== null) {
 							supportPolicy.link = map[os][0];
@@ -418,6 +468,8 @@ function addLinksToArrays() {
 	databaseMap['Sybase'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31656', null];
 	databaseMap['SQL'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31668', null];
 
+	hotFixMap['hotfix'] = [null, null];
+
 	javaMap['IBM JDK'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31918', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/24963'];
 	javaMap['Oracle JRockit'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31996', null];
 	javaMap['Oracle JDK'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31968', null];
@@ -451,14 +503,16 @@ var appServerMap = new Map(),
 	databaseMap = new Map(),
 	javaMap = new Map(),
 	lrVersionMap = new Map(),
-	osMap = new Map();
+	osMap = new Map(),
+	hotFixMap = new Map();
 
-var arrayOfMaps = [appServerMap, browserMap, componentMap, databaseMap, javaMap, osMap];
+var arrayOfMaps = [appServerMap, browserMap, componentMap, databaseMap, javaMap, osMap, hotFixMap];
 
 var supportPolicyLinks = [],
 	installationLinks = [],
 	troubleshootingLinks = [],
-	supportForumsLinks = [];
+	supportForumsLinks = [],
+	hotFixLinks = [];
 
 var applicationServerText = "APPLICATION SERVER: ";
 var componentText = "COMPONENT: ";
@@ -479,5 +533,7 @@ var categoryNames = [
 	"Support Policies",
 	"Installation",
 	"Troubleshooting",
-	"Product Support Forums"
+	"Product Support Forums",
+	"Latest Customer Fixes"
+	
 ];

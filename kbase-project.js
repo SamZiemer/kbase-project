@@ -400,10 +400,6 @@ function proceed() {
 					}
 					break;
 				case 5:
-						getHotFixLinks();
-
-					break;
-				case 6:
 					if (os in map) {
 						if (map[os][0] !== null) {
 							supportPolicy.link = map[os][0];
@@ -416,6 +412,10 @@ function proceed() {
 							troubleshootingLinks[troubleshootingLinks.length] = troubleShoot;
 						}
 					}
+					break;
+				case 6:
+					getHotFixLinks();
+
 					break;
 			}
 		}

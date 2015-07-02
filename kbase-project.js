@@ -109,7 +109,7 @@ function proceed() {
 
 	listDiv.className = "menuList";
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < 5; i++) {
 		listDiv.appendChild(outterDiv[i]);
 	}
 
@@ -211,12 +211,8 @@ function proceed() {
 
 					if (version) {
 						var begin = version.toUpperCase().indexOf(serverInfo) + serverInfo.length;
-						var end = version.indexOf('  ');
-						if ((serverInfo == opSystemText) || (serverInfo == browserText) || (serverInfo == javaText)) {
-							end = version.indexOf('  ') + begin;
-						} else if(serverInfo == componentText) {
-							end = version.indexOf('   ');
-						}
+						var end = version.indexOf('  ', begin);
+
 						version = version.substring(begin, end);
 						return version.toString().trim();
 					}
@@ -388,7 +384,7 @@ function proceed() {
 				case 4:
 					if (java in map) {
 						if (map[java][0] !== null) {
-							supportPolicy.link = map[java][1];
+							supportPolicy.link = map[java][0];
 							supportPolicy.name = dataArray[5];
 							supportPolicyLinks[supportPolicyLinks.length] = supportPolicy;
 						}
@@ -414,7 +410,7 @@ function proceed() {
 					}
 					break;
 				case 6:
-					getHotFixLinks();
+					//getHotFixLinks();
 
 					break;
 			}
@@ -462,7 +458,7 @@ function addLinksToArrays() {
 	componentMap['Workflows/Forms'] = [null, null, null, null];
 
 	databaseMap['Oracle'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31478', null];
-	databaseMap['Mysql'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31470', null];
+	databaseMap['MySQL'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31470', null];
 	databaseMap['DB2'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31688', null];
 	databaseMap['PostgreSQL'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31644', null];
 	databaseMap['Sybase'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31656', null];
@@ -472,7 +468,7 @@ function addLinksToArrays() {
 
 	javaMap['IBM JDK'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31918', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/24963'];
 	javaMap['Oracle JRockit'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31996', null];
-	javaMap['Oracle JDK'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31968', null];
+	javaMap['Java'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31968', null];
 	javaMap['Sun JDK'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31945', null];
 
 	lrVersionMap['6.2'] = ['https://www.liferay.com/documents/14/21598941/Liferay+Portal+6.2+EE+Compatibility+Matrix.pdf/3b3fd878-c954-4acc-bd5f-19fb7eb78210'];
@@ -535,5 +531,4 @@ var categoryNames = [
 	"Troubleshooting",
 	"Product Support Forums",
 	"Latest Customer Fixes"
-	
 ];

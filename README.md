@@ -19,5 +19,21 @@ links to the Knowledge Base based on information provided by the page.
 	<li>The script should be installed and usable on any LESA ticket page.</li>
 </ol>
 
-<b>More Browser support to follow</b>
 </p>
+
+<p>
+	<b>FireFox</b>
+	<ol>
+		<li>In the scripts folder, download the FirefoxScript.js</li>
+		<li>Install the <a href="https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/" target="_blank">Grease Monkey</a> add on to Firefox.</li>
+		<li>Click the arrow next to the Grease Monkey icon in Firefox and select "Manage User Scripts"</li>
+		<li>Click "New User Script"</li>
+		<li>Name the script what you like, and add liferay.com to the Namespace box, then click ok to continue</li>
+		<li>Copy the entire contents of the FirefoxScript.js downloaded in step 1, and paste it into the text editor pops up</li>
+		<li>Click save, and close the text editor.</li>
+		<li>Click preferences, and select "add" in the included pages section</li>
+		<li>Paste "https://www.liferay.com/web/*/support*" in the box, and click ok.</li>
+	</ol>
+</p>
+
+<h3>The script should now be active on your chosen browser on any lesa support ticket.</h3>

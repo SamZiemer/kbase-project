@@ -7,7 +7,7 @@ links to the Knowledge Base based on information provided by the page.
 
 <h2>Installation</h2>
 <p>
-<b>Chrome</b> 
+<h3>Chrome</h3> 
 <ol>
 	<li>In the scripts folder, download the ChromeKBaseScripts.zip.</li>
 	<li>Install the <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en" target="_blank">Tamper Monkey</a> extension to chrome.</li>
@@ -22,7 +22,7 @@ links to the Knowledge Base based on information provided by the page.
 </p>
 
 <p>
-	<b>FireFox</b>
+	<h3>FireFox <b>38+</b></h3>
 	<ol>
 		<li>In the scripts folder, download the FirefoxScript.js</li>
 		<li>Install the <a href="https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/" target="_blank">Grease Monkey</a> add on to Firefox.</li>

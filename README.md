@@ -1,13 +1,8 @@
 <h1>KBase Project</h1>
 
-<h2>Introduction</h2>
 <p>
-	This project adds additional functionality to the Liferay LESA project by including links to the Knowledge Base based on information provided by the page.
-</p>
-
-<p>
-	<h2>Features</h2>
-	<p>This extension allows a list of links, separated into relevant categories, to be added to the side of any LESA support ticket. Each category can be collapsed by clicking on the category header in addition, the entire list can be collapsed by click on the "Quick Links" text.</p>
+	<h2>Introduction</h2>
+	<p>This project allows a list of links to the Knowledge Base, separated into relevant categories, to be added to the side of any LESA support ticket. Each category can be collapsed by clicking on the category header in addition, the entire list can be collapsed by click on the "Quick Links" text.</p>
 <p>
 
 <p>

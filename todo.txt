@@ -1,0 +1,2 @@
+1. Add property to script to allow the choice of having the menu collapsed or expanded by default.
+2. Research and implement a way to track links clicked from the extension.

@@ -13,7 +13,7 @@ function proceed() {
 	floatMenu.id = "floatMenu";
 
 	for (var i = 0; i < 6; i++) {
-		outterDiv[i] = document.createElement('div');
+		outerDiv[i] = document.createElement('div');
 
 		menuItem[i] = document.createElement('div');
 		menuItem[i].className = 'menuItem';
@@ -26,15 +26,18 @@ function proceed() {
 		var li;
 		switch (i) {
 			case 0:
-				a = document.createElement('a');
-				a.href = '_blank';
-				a.text = "Coming soon...";
-				a.target = '_blank';
-				li = document.createElement('li');
-				li.appendChild(a);
-				subMenu[i].appendChild(li);
+				for (var j = -1; j < relatedIssuesLinks.length; j++) {
+					a = document.createElement('a');
+					a.href = '';
+					a.text = "Coming soon...";
+					a.target = '_blank';
+					li = document.createElement('li');
+					li.appendChild(a);
+					subMenu[i].appendChild(li);
 
-				addLinksForFeedback();
+					//addLinksForFeedback(relatedIssuesLinks[j].link);
+				}
+
 				break;
 
 			case 1:
@@ -47,7 +50,7 @@ function proceed() {
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
 
-					addLinksForFeedback();
+					addLinksForFeedback(troubleshootingLinks[j].link);
 				}
 				break;
 
@@ -61,7 +64,7 @@ function proceed() {
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
 
-					addLinksForFeedback()
+					addLinksForFeedback(installationLinks[j].link)
 				}
 				break;
 
@@ -75,7 +78,7 @@ function proceed() {
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
 
-					addLinksForFeedback();
+					addLinksForFeedback(supportPolicyLinks[j].link);
 				}
 				break;
 
@@ -89,7 +92,7 @@ function proceed() {
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
 
-					addLinksForFeedback();
+					addLinksForFeedback(supportForumsLinks[j]);
 				}
 				break;
 
@@ -107,8 +110,8 @@ function proceed() {
 				break;
 		}
 
-		outterDiv[i].appendChild(menuItem[i]);
-		outterDiv[i].appendChild(subMenu[i]);
+		outerDiv[i].appendChild(menuItem[i]);
+		outerDiv[i].appendChild(subMenu[i]);
 	}
 
 	var listDiv = document.createElement('div');
@@ -116,7 +119,7 @@ function proceed() {
 	listDiv.className = "menuList";
 
 	for (i = 0; i < 6; i++) {
-		listDiv.appendChild(outterDiv[i]);
+		listDiv.appendChild(outerDiv[i]);
 	}
 
 	var h3 = document.createElement('h3');
@@ -248,20 +251,18 @@ function proceed() {
 		return customerId[0];
 	}
 
-	function addLinksForFeedback() {
-		var customerId = dataArray[7];
+	function addLinksForFeedback(linkContent) {
 
-		//add to FeedbackLinkContent[]; ++
-
-		//as we loop through each above link map, add them here too
-
+		feedbackLinkContent[feedbackLinkContent.length] = linkContent;
 	}
 
 	function createFeedbackURL() {
 
+		var customerId = dataArray[7];
+
 		//get feedbackLinkContent
 
-		return "www.google.com"
+		return "https://docs.google.com/forms/d"
 	}
 
 	function getLinks() {
@@ -407,7 +408,7 @@ function proceed() {
 					}
 					break;
 				case 6:
-					//getHotFixLinks();
+					//getRelatedIssuesLinks
 
 					break;
 			}
@@ -495,15 +496,17 @@ var appServerMap = new Map(),
 	databaseMap = new Map(),
 	javaMap = new Map(),
 	lrVersionMap = new Map(),
-	osMap = new Map();
+	osMap = new Map(),
+	relatedIssuesMap = new Map();
 
-var arrayOfMaps = [appServerMap, browserMap, componentMap, databaseMap, javaMap, osMap];
+var arrayOfMaps = [appServerMap, browserMap, componentMap, databaseMap, javaMap, osMap, relatedIssuesMap];
 
 var supportPolicyLinks = [],
 	installationLinks = [],
 	troubleshootingLinks = [],
 	supportForumsLinks = [],
-	FeedbackLinkContent = [];
+	relatedIssuesLinks = [],
+	feedbackLinkContent = [];
 
 var applicationServerText = "APPLICATION SERVER: ";
 var componentText = "COMPONENT: ";
@@ -516,7 +519,7 @@ var javaText = "JAVA VIRTUAL MACHINE: ";
 var dataArray = [];
 
 var floatMenu = document.createElement('div');
-var outterDiv = [];
+var outerDiv = [];
 var menuItem = [];
 var subMenu = [];
 var categoryNames = [

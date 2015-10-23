@@ -24,37 +24,29 @@ function proceed() {
 
 		var a;
 		var li;
-		var link = '';
-		var linkText = '';
 		switch (i) {
 			case 0:
-				linkText = dataArray[0];
-
-				var versionNumber = linkText.split(" ");
-				versionNumber = versionNumber[0];
-				dataArray[0] = versionNumber;
-
-				link = lrVersionMap[versionNumber][0];
-
 				a = document.createElement('a');
-				a.href = link;
-				a.text = linkText;
+				a.href = '_blank';
+				a.text = "Coming soon...";
 				a.target = '_blank';
 				li = document.createElement('li');
 				li.appendChild(a);
 				subMenu[i].appendChild(li);
 				break;
+
 			case 1:
-				for (var j = 0; j < supportPolicyLinks.length; j++) {
+				for (var j = 0; j < troubleshootingLinks.length; j++) {
 					a = document.createElement('a');
-					a.href = supportPolicyLinks[j].link;
-					a.text = supportPolicyLinks[j].name;
+					a.href = troubleshootingLinks[j].link;
+					a.text = troubleshootingLinks[j].name;
 					a.target = '_blank';
 					li = document.createElement('li');
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
 				}
 				break;
+
 			case 2:
 				for (var j = 0; j < installationLinks.length; j++) {
 					a = document.createElement('a');
@@ -66,17 +58,19 @@ function proceed() {
 					subMenu[i].appendChild(li);
 				}
 				break;
+
 			case 3:
-				for (var j = 0; j < troubleshootingLinks.length; j++) {
+				for (var j = 0; j < supportPolicyLinks.length; j++) {
 					a = document.createElement('a');
-					a.href = troubleshootingLinks[j].link;
-					a.text = troubleshootingLinks[j].name;
+					a.href = supportPolicyLinks[j].link;
+					a.text = supportPolicyLinks[j].name;
 					a.target = '_blank';
 					li = document.createElement('li');
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
 				}
 				break;
+
 			case 4:
 				for (var j = 0; j < supportForumsLinks.length; j++) {
 					a = document.createElement('a');
@@ -88,16 +82,17 @@ function proceed() {
 					subMenu[i].appendChild(li);
 				}
 				break;
+
 			case 5:
-				for (var j = 0; j < hotFixLinks.length; j++) {
 					a = document.createElement('a');
-					a.href = hotFixLinks[j].link;
-					a.text = hotFixLinks[j].name;
+					a.href = "www.google.com";
+					a.text = "Yes - Or - No";
 					a.target = '_blank';
+					var feedbackURL = createFeedbackLink();
 					li = document.createElement('li');
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
-				}
+
 				break;
 		}
 
@@ -109,7 +104,7 @@ function proceed() {
 
 	listDiv.className = "menuList";
 
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < 6; i++) {
 		listDiv.appendChild(outterDiv[i]);
 	}
 
@@ -237,31 +232,19 @@ function proceed() {
 		var customerId = document.getElementsByTagName("title")[0].innerHTML;
 
 		var tempVar = customerId.split("[");
-		customerId = tempVar[1].split("-");
+		customerId = tempVar[1].split("]");
 
 		return customerId[0];
 	}
 
-	function getHotFixLinks() {
+	function createFeedbackLink() {
 
 		var customerId = dataArray[7];
-		var version = dataArray[0];
 
-		if (version.indexOf("6.1")) {
+		//as we loop through each above link map, add them here too
 
-			console.log(version);
-			console.log(customerId);
-			//find from server
-		}
 
-		if (version.indexOf("6.2")) {
-
-			console.log(version);
-			console.log(customerId);
-
-			//findBy_customerId;
-			//find from patcher
-		}
+		return "www.google.com/";
 
 	}
 
@@ -273,14 +256,12 @@ function proceed() {
 			java = dataArray[5].split(" ")[0],
 			os = dataArray[1].split(" ")[0];
 
-
 		for (var i = 0; i < arrayOfMaps.length; i++) {
 			var map = arrayOfMaps[i];
 			var install = [];
 			var supportPolicy = [];
 			var troubleShoot = [];
 			var supportForums = [];
-			var hotFixes = [];
 
 			switch (i) {
 				case 0:
@@ -464,7 +445,6 @@ function addLinksToArrays() {
 	databaseMap['Sybase'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31656', null];
 	databaseMap['SQL'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31668', null];
 
-	hotFixMap['hotfix'] = [null, null];
 
 	javaMap['IBM JDK'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31918', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/24963'];
 	javaMap['Oracle JRockit'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31996', null];
@@ -499,16 +479,15 @@ var appServerMap = new Map(),
 	databaseMap = new Map(),
 	javaMap = new Map(),
 	lrVersionMap = new Map(),
-	osMap = new Map(),
-	hotFixMap = new Map();
+	osMap = new Map();
 
-var arrayOfMaps = [appServerMap, browserMap, componentMap, databaseMap, javaMap, osMap, hotFixMap];
+var arrayOfMaps = [appServerMap, browserMap, componentMap, databaseMap, javaMap, osMap];
 
 var supportPolicyLinks = [],
 	installationLinks = [],
 	troubleshootingLinks = [],
 	supportForumsLinks = [],
-	hotFixLinks = [];
+	FeedbackLinkContent = [];
 
 var applicationServerText = "APPLICATION SERVER: ";
 var componentText = "COMPONENT: ";
@@ -525,10 +504,10 @@ var outterDiv = [];
 var menuItem = [];
 var subMenu = [];
 var categoryNames = [
-	"Compatibiltiy Matrix",
-	"Support Policies",
-	"Installation",
+	"Related Issues",
 	"Troubleshooting",
+	"How to (Install)",
+	"Support Policies",
 	"Product Support Forums",
-	"Latest Customer Fixes"
+	"Was this tool helpful?"
 ];

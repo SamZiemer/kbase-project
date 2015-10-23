@@ -33,6 +33,8 @@ function proceed() {
 				li = document.createElement('li');
 				li.appendChild(a);
 				subMenu[i].appendChild(li);
+
+				addLinksForFeedback();
 				break;
 
 			case 1:
@@ -44,6 +46,8 @@ function proceed() {
 					li = document.createElement('li');
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
+
+					addLinksForFeedback();
 				}
 				break;
 
@@ -56,6 +60,8 @@ function proceed() {
 					li = document.createElement('li');
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
+
+					addLinksForFeedback()
 				}
 				break;
 
@@ -68,6 +74,8 @@ function proceed() {
 					li = document.createElement('li');
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
+
+					addLinksForFeedback();
 				}
 				break;
 
@@ -80,15 +88,18 @@ function proceed() {
 					li = document.createElement('li');
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
+
+					addLinksForFeedback();
 				}
 				break;
 
 			case 5:
+					var feedbackURL = createFeedbackURL();
+
 					a = document.createElement('a');
-					a.href = "www.google.com";
+					a.href = feedbackURL;
 					a.text = "Yes - Or - No";
 					a.target = '_blank';
-					var feedbackURL = createFeedbackLink();
 					li = document.createElement('li');
 					li.appendChild(a);
 					subMenu[i].appendChild(li);
@@ -237,15 +248,20 @@ function proceed() {
 		return customerId[0];
 	}
 
-	function createFeedbackLink() {
-
+	function addLinksForFeedback() {
 		var customerId = dataArray[7];
+
+		//add to FeedbackLinkContent[]; ++
 
 		//as we loop through each above link map, add them here too
 
+	}
 
-		return "www.google.com/";
+	function createFeedbackURL() {
 
+		//get feedbackLinkContent
+
+		return "www.google.com"
 	}
 
 	function getLinks() {

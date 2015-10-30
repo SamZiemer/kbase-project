@@ -118,11 +118,8 @@ function proceed() {
 				a.href = feedbackURLYes;
 				a.text = "Yes";
 				a.target = '_blank';
-<<<<<<< HEAD
 
 				s.innerText = " - or - ";
-=======
->>>>>>> remove unused variables
 
 				var b = document.createElement('a');
 				b.href = feedbackURLNo;

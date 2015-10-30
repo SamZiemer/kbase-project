@@ -1,10 +1,10 @@
-//window.addEventListener('load', function() {
+window.addEventListener('load', function() {
 	var jq = document.createElement('script');
 	jq.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js";
 	document.querySelector('head').appendChild(jq);
 
 	jq.onload = proceed;
-//}, false);
+}, false);
 
 function proceed() {
 	getServerInfo();
@@ -100,24 +100,28 @@ function proceed() {
 				var feedbackURLYes = createFeedbackURL("Yes");
 				var feedbackURLNo = createFeedbackURL("No");
 
+				var s = document.createElement('span');
+				s.innerText = " - or - ";
+
 				var d = document.createElement('div');
 
 				a = document.createElement('a');
 				a.href = feedbackURLYes;
-				a.text = "Yes      ";
+				a.text = "Yes";
 				a.target = '_blank';
 				li = document.createElement('li');
 				li.appendChild(a);
 
 				var b = document.createElement('a');
 				b.href = feedbackURLNo;
-				b.text = "     No";
+				b.text = "No";
 				b.target = '_blank';
 				var lib = document.createElement('li');
 				lib.appendChild(b);
 
 				d.appendChild(a);
-				d.appendChild(b)
+				d.appendChild(s);
+				d.appendChild(b);
 				subMenu[i].appendChild(d);
 
 				break;

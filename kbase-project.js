@@ -28,7 +28,7 @@ function proceed() {
 			case 0:
 				for (var j = -1; j < relatedIssuesLinks.length; j++) {
 					a = document.createElement('a');
-					a.href = '';
+					//a.href = '';
 					a.text = "Coming soon...";
 					a.target = '_blank';
 					li = document.createElement('li');
@@ -260,19 +260,19 @@ function proceed() {
 
 		var customerId = dataArray[7];
 
-		var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/viewform";
+		var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/formResponse?ifq&";
 
-		var completeFormURL = baseGoogleFormURL + "?entry.321334840=" + customerId;
+		var completeFormURL = baseGoogleFormURL + "&entry.321334840=" + customerId;
 
 		completeFormURL = completeFormURL + "&entry.1983029939=" + "Yes&" ;
 
 		completeFormURL = completeFormURL + "&entry.1550379905=";
 
-		for (var a = 1; a < feedbackLinkContent.length; a++) {
+		for (var a = 0; a < feedbackLinkContent.length; a++) {
 			completeFormURL = completeFormURL + feedbackLinkContent[a] + " , "
 		}
 
-		return completeFormURL;
+		return completeFormURL + "&submit=Submit";
 	}
 
 	function getLinks() {

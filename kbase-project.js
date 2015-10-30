@@ -1,10 +1,10 @@
-window.addEventListener('load', function() {
+//window.addEventListener('load', function() {
 	var jq = document.createElement('script');
 	jq.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js";
 	document.querySelector('head').appendChild(jq);
 
 	jq.onload = proceed;
-}, false);
+//}, false);
 
 function proceed() {
 	getServerInfo();
@@ -118,8 +118,6 @@ function proceed() {
 				a.href = feedbackURLYes;
 				a.text = "Yes";
 				a.target = '_blank';
-
-				s.innerText = " - or - ";
 
 				var b = document.createElement('a');
 				b.href = feedbackURLNo;

@@ -260,9 +260,19 @@ function proceed() {
 
 		var customerId = dataArray[7];
 
-		//get feedbackLinkContent
+		var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/viewform";
 
-		return "https://docs.google.com/forms/d"
+		var completeFormURL = baseGoogleFormURL + "?entry.321334840=" + customerId;
+
+		completeFormURL = completeFormURL + "&entry.1983029939=" + "Yes&" ;
+
+		completeFormURL = completeFormURL + "&entry.1550379905=";
+
+		for (var a = 1; a < feedbackLinkContent.length; a++) {
+			completeFormURL = completeFormURL + feedbackLinkContent[a] + " , "
+		}
+
+		return completeFormURL;
 	}
 
 	function getLinks() {

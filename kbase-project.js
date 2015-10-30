@@ -97,27 +97,27 @@ function proceed() {
 				break;
 
 			case 5:
-				var feedbackURL = createFeedbackURL();
+				var feedbackURLYes = createFeedbackURL("Yes");
+				var feedbackURLNo = createFeedbackURL("No");
 
 				var d = document.createElement('div');
 
 				a = document.createElement('a');
-				a.href = feedbackURL;
-				a.text = "Yes";
+				a.href = feedbackURLYes;
+				a.text = "Yes      ";
 				a.target = '_blank';
 				li = document.createElement('li');
 				li.appendChild(a);
-				//subMenu[i].appendChild(li);
 
 				var b = document.createElement('a');
-				b.href = feedbackURL;
-				b.text = "No";
+				b.href = feedbackURLNo;
+				b.text = "     No";
 				b.target = '_blank';
 				var lib = document.createElement('li');
 				lib.appendChild(b);
-				//subMenu[i].appendChild(li);
 
-				d.style = a + " - or - " + b;
+				d.appendChild(a);
+				d.appendChild(b)
 				subMenu[i].appendChild(d);
 
 				break;

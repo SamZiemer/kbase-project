@@ -1,13 +1,10 @@
-var collapsedOnStart = true;
-var collapsed = collapsedOnStart;
-
-window.addEventListener('load', function() {
+//window.addEventListener('load', function() {
 	var jq = document.createElement('script');
 	jq.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js";
 	document.querySelector('head').appendChild(jq);
 
 	jq.onload = proceed;
-}, false);
+//}, false);
 
 function proceed() {
 	getServerInfo();
@@ -103,7 +100,7 @@ function proceed() {
 			{
 				a = document.createElement('a');
 				a.href = "https://in.liferay.com/web/support/wiki/-/wiki/Main+Global/Service+Level+Response+and+Resolution+Times"
-				a.text = "SLA";
+				a.text = "SLA"
 				a.target = '_blank';
 				li = document.createElement('li');
 				li.appendChild(a);
@@ -116,12 +113,16 @@ function proceed() {
 				var feedbackURLNo = createFeedbackURL("No");
 				var d = document.createElement('div');
 				var s = document.createElement('span');
-				s.innerText = " - or - ";
 
 				a = document.createElement('a');
 				a.href = feedbackURLYes;
 				a.text = "Yes";
 				a.target = '_blank';
+<<<<<<< HEAD
+
+				s.innerText = " - or - ";
+=======
+>>>>>>> remove unused variables
 
 				var b = document.createElement('a');
 				b.href = feedbackURLNo;
@@ -215,10 +216,6 @@ function proceed() {
 	head.appendChild(style);
 
 	jQuery(function() {
-        if(collapsedOnStart){
-            jQuery('.menuList').hide();
-            floatMenu.className = "";//"rotate";
-        }
 		jQuery('.menuItem').click(function() {
 			$menuItem = jQuery(this);
 			$subMenu = $menuItem.next();
@@ -230,13 +227,6 @@ function proceed() {
 		jQuery('.menuHeader').click(function() {
 			jQuery('.subMenu').hide();
 			jQuery('.menuList').slideToggle(500);
-            collapsed = collapsed ^ true;
-            
-            if (collapsed) {
-                floatMenu.className = "";//"rotate";
-            } else {
-                floatMenu.className = "";
-            }
 		});
 	});
 

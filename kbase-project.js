@@ -1,10 +1,10 @@
-window.addEventListener('load', function() {
+//window.addEventListener('load', function() {
 	var jq = document.createElement('script');
 	jq.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js";
 	document.querySelector('head').appendChild(jq);
 
 	jq.onload = proceed;
-}, false);
+//}, false);
 
 function proceed() {
 	getServerInfo();
@@ -97,15 +97,28 @@ function proceed() {
 				break;
 
 			case 5:
-					var feedbackURL = createFeedbackURL();
+				var feedbackURL = createFeedbackURL();
 
-					a = document.createElement('a');
-					a.href = feedbackURL;
-					a.text = "Yes - Or - No";
-					a.target = '_blank';
-					li = document.createElement('li');
-					li.appendChild(a);
-					subMenu[i].appendChild(li);
+				var d = document.createElement('div');
+
+				a = document.createElement('a');
+				a.href = feedbackURL;
+				a.text = "Yes";
+				a.target = '_blank';
+				li = document.createElement('li');
+				li.appendChild(a);
+				//subMenu[i].appendChild(li);
+
+				var b = document.createElement('a');
+				b.href = feedbackURL;
+				b.text = "No";
+				b.target = '_blank';
+				var lib = document.createElement('li');
+				lib.appendChild(b);
+				//subMenu[i].appendChild(li);
+
+				d.style = a + " - or - " + b;
+				subMenu[i].appendChild(d);
 
 				break;
 		}
@@ -256,7 +269,7 @@ function proceed() {
 		feedbackLinkContent[feedbackLinkContent.length] = linkContent;
 	}
 
-	function createFeedbackURL() {
+	function createFeedbackURL(answer) {
 
 		var customerId = dataArray[7];
 
@@ -264,7 +277,7 @@ function proceed() {
 
 		var completeFormURL = baseGoogleFormURL + "&entry.321334840=" + customerId;
 
-		completeFormURL = completeFormURL + "&entry.1983029939=" + "Yes&" ;
+		completeFormURL = completeFormURL + "&entry.1983029939=" + answer +"&" ;
 
 		completeFormURL = completeFormURL + "&entry.1550379905=";
 

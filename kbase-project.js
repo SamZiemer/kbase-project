@@ -12,7 +12,7 @@ function proceed() {
 	getLinks();
 	floatMenu.id = "floatMenu";
 
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i < 7; i++) {
 		outerDiv[i] = document.createElement('div');
 
 		menuItem[i] = document.createElement('div');
@@ -97,27 +97,34 @@ function proceed() {
 				break;
 
 			case 5:
+			{
+				a = document.createElement('a');
+				a.href = "https://in.liferay.com/web/support/wiki/-/wiki/Main+Global/Service+Level+Response+and+Resolution+Times"
+				a.text = "SLA"
+				a.target = '_blank';
+				li = document.createElement('li');
+				li.appendChild(a);
+				subMenu[i].appendChild(li);
+			}
+				break;
+
+			case 6:
 				var feedbackURLYes = createFeedbackURL("Yes");
 				var feedbackURLNo = createFeedbackURL("No");
-
-				var s = document.createElement('span');
-				s.innerText = " - or - ";
-
 				var d = document.createElement('div');
+				var s = document.createElement('span');
 
 				a = document.createElement('a');
 				a.href = feedbackURLYes;
 				a.text = "Yes";
 				a.target = '_blank';
-				li = document.createElement('li');
-				li.appendChild(a);
+
+				s.innerText = " - or - ";
 
 				var b = document.createElement('a');
 				b.href = feedbackURLNo;
 				b.text = "No";
 				b.target = '_blank';
-				var lib = document.createElement('li');
-				lib.appendChild(b);
 
 				d.appendChild(a);
 				d.appendChild(s);
@@ -135,7 +142,7 @@ function proceed() {
 
 	listDiv.className = "menuList";
 
-	for (i = 0; i < 6; i++) {
+	for (i = 0; i < 7; i++) {
 		listDiv.appendChild(outerDiv[i]);
 	}
 
@@ -458,29 +465,30 @@ function addLinksToArrays() {
 	browserMap['Internet'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31762', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327'];
 	browserMap['Safari'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32039', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327'];
 
-	componentMap['Account Administration'] = [null, null, null, null];
-	componentMap['Authentication'] = [null, null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30483783', 'https://in.liferay.com/web/support/forums/-/message_boards/category/4697603'];
-	componentMap['Calendar'] = [null, null, null, null];
-	componentMap['Clustering'] = [null, null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30483839', null];
-	componentMap['Collaboration Suite'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/collaboration-suite', null, null, null];
-	componentMap['Developer Studio'] = [null, null, null, 'https://in.liferay.com/web/support/forums/-/message_boards/category/4697596'];
-	componentMap['Document Library'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/document-management', null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30483903', 'https://in.liferay.com/web/support/forums/-/message_boards/category/4534050'];
-	componentMap['LAR/Staging'] = [null, null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30484028', 'https://in.liferay.com/web/support/forums/-/message_boards/category/4642154'];
+	componentMap['Account Administration'] = [null, null, "https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/integrating-liferay-users-into-your-enterprise#ldap", null];
+	componentMap['Activation Key'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36709616", null,"https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36675767","https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36675767",null];
+	componentMap['Authentication'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/40556658", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40359", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14567", "https://in.liferay.com/web/support/forums/-/message_boards/category/4697603"];
+	componentMap['Calendar'] = ["https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/managing-events-and-calendar-resources-with-liferays-c", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40324", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/15145", "https://in.liferay.com/web/support/forums/-/message_boards/category/5951214"];
+	componentMap['Clustering'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/14264973", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14666", "https://in.liferay.com/web/support/forums/-/message_boards/category/16979473"];
+	componentMap['Collaboration Suite'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/collaboration-suite', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40284", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/15089", "https://in.liferay.com/web/support/forums/-/message_boards/category/5951214"];
+	componentMap['Developer Studio'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/27061762", null, null, 'https://in.liferay.com/web/support/forums/-/message_boards/category/4697596'];
+	componentMap['Document Library'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/document-management', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/38992", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30483903", "https://in.liferay.com/web/support/forums/-/message_boards/category/4534050"];
+	componentMap['LAR/Staging'] = ["https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/43449", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14694", "https://in.liferay.com/web/support/forums/-/message_boards/category/5953181"];
 	componentMap['License'] = ['https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36709616', null, 'https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/36675767', null];
 	componentMap['License/Account Setup'] = ['https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36709616', null, 'https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/36675767', null];
-	componentMap['Liferay API'] = [null, null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30484149', null];
-	componentMap['Liferay Faces'] = ['https://www.liferay.com/community/liferay-projects/liferay-faces/documentation', null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/27733288', null];
-	componentMap['Liferay Mobile SDK'] = ['https://dev.liferay.com/develop/tutorials/-/knowledge_base/6-2/mobile', null, null, null];
-	componentMap['Liferay Sync'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/managing-files-with-liferay-sync-3-0-beta', null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/27528001', null];
-	componentMap['Patch Management'] = ['https://www.liferay.com/group/customer/products/portal/patching', null, null, null];
-	componentMap['Portal Administration'] = [null, null, null, 'https://in.liferay.com/web/support/forums/-/message_boards/category/4772239'];
-	componentMap['Portal Deployment'] = ['https://dev.liferay.com/discover/deployment', null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485351', null];
-	componentMap['Search/Indexing'] = [null, null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485451', null];
-	componentMap['Security'] = [null, null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485588', null];
-	componentMap['UI'] = [null, null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485627', 'https://in.liferay.com/web/support/forums/-/message_boards/category/4534053'];
-	componentMap['Upgrade'] = [null, null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485671', 'https://in.liferay.com/web/support/forums/-/message_boards/category/4698362'];
-	componentMap['Web Content Management'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/web-content-management', null, 'https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485750', 'https://in.liferay.com/web/support/forums/-/message_boards/category/4697774'];
-	componentMap['Workflows/Forms'] = [null, null, null, null];
+	componentMap['Liferay API'] = ["https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/14262850", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/15200", "https://in.liferay.com/web/support/forums/-/message_boards/category/5950852"];
+	componentMap['Liferay Faces'] = ['https://www.liferay.com/community/liferay-projects/liferay-faces/documentation', null, "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/27733288", "https://in.liferay.com/web/support/forums/-/message_boards/category/5951363"];
+	componentMap['Liferay Mobile SDK'] = ['https://dev.liferay.com/develop/tutorials/-/knowledge_base/6-2/mobile', null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/15277", null];
+	componentMap['Liferay Sync'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/administering-liferay-sync', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40300", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/27528001", "https://in.liferay.com/web/support/forums/-/message_boards/category/5952429"];
+	componentMap['Patch Management'] = ['https://www.liferay.com/group/customer/products/portal/patching', null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14769", null];
+	componentMap['Portal Administration'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30717691", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/18554", "https://in.liferay.com/web/support/forums/-/message_boards/category/4772239"];
+	componentMap['Portal Deployment'] = ['https://dev.liferay.com/discover/deployment', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31470", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485351", "https://in.liferay.com/web/support/forums/-/message_boards/category/4533678"];
+	componentMap['Search/Indexing'] = ["https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/14324221", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40308", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485451", "https://in.liferay.com/web/support/forums/-/message_boards/category/5953181"];
+	componentMap['Security'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/40556658", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/25821", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14727", "https://in.liferay.com/web/support/forums/-/message_boards/category/5950866"];
+	componentMap['UI'] = [null, null, "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/43697018", "https://in.liferay.com/web/support/forums/-/message_boards/category/5952679"];
+	componentMap['Upgrade'] = ["https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/27740277", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14762", "https://in.liferay.com/web/support/forums/-/message_boards/category/17065113"];
+	componentMap['Web Content Management'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/web-content-management', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40292", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485750", 'https://in.liferay.com/web/support/forums/-/message_boards/category/4697774'];
+	componentMap['Workflows/Forms'] = ["https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/kaleo-forms-defining-business-processes", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/18545", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/22105"];
 
 	databaseMap['Oracle'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31478', null];
 	databaseMap['MySQL'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31470', null];
@@ -555,5 +563,6 @@ var categoryNames = [
 	"How to (Install)",
 	"Support Policies",
 	"Product Support Forums",
+	"Service Level Agreement",
 	"Was this tool helpful?"
 ];

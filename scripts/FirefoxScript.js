@@ -307,9 +307,9 @@ function proceed() {
 
 		var customerId = dataArray[7];
 
-		var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/formResponse?ifq&";
+		var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/viewform?";
 
-		var completeFormURL = baseGoogleFormURL + "&entry.321334840=" + customerId;
+		var completeFormURL = baseGoogleFormURL + "entry.321334840=" + customerId;
 
 		completeFormURL = completeFormURL + "&entry.1983029939=" + answer +"&" ;
 
@@ -319,7 +319,7 @@ function proceed() {
 			completeFormURL = completeFormURL + feedbackLinkContent[a] + " , "
 		}
 
-		return completeFormURL + "&submit=Submit";
+		return completeFormURL;
 	}
 
 	function getLinks() {

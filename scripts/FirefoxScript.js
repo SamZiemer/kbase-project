@@ -10,7 +10,7 @@
 
 var collapsedOnStart = true;
 var collapsed = collapsedOnStart;
-var hidden = false;
+var hidden = true;
 
 window.addEventListener('load', function() {
 	var jq = document.createElement('script');
@@ -169,7 +169,7 @@ function proceed() {
 
 	floatMenu.appendChild(listDiv);
 
-	hideButton.innerHTML = "<img src='http://www.iconsdb.com/icons/preview/royal-blue/minus-xxl.png' style='width:20px;height:20px;'>";
+	hideButton.innerHTML = "<img src='https://cdn3.iconfinder.com/data/icons/musthave/256/Add.png' style='width:20px;height:20px;'>";
 	hideButton.onclick = showOrHideMenu;
 
 	document.body.appendChild(hideButton);
@@ -181,7 +181,7 @@ function proceed() {
 			position:fixed;\
 			top:15%;\
 			right:0px;\
-			width:200px;\
+			width:0px;\
 			background-color:#FFF;\
 			margin:0;\
 			padding:0;\

@@ -15,7 +15,7 @@ function proceed() {
 	getLinks();
 	floatMenu.id = "floatMenu";
 
-	for (var i = 0; i < 7; i++) {
+	for (var i = 0; i < categoryNames.length; i++) {
 		outerDiv[i] = document.createElement('div');
 
 		menuItem[i] = document.createElement('div');
@@ -29,21 +29,6 @@ function proceed() {
 		var li;
 		switch (i) {
 			case 0:
-				for (var j = -1; j < relatedIssuesLinks.length; j++) {
-					a = document.createElement('a');
-					//a.href = '';
-					a.text = "Coming soon...";
-					a.target = '_blank';
-					li = document.createElement('li');
-					li.appendChild(a);
-					subMenu[i].appendChild(li);
-
-					//addLinksForFeedback(relatedIssuesLinks[j].link);
-				}
-
-				break;
-
-			case 1:
 				for (var j = 0; j < troubleshootingLinks.length; j++) {
 					a = document.createElement('a');
 					a.href = troubleshootingLinks[j].link;
@@ -57,7 +42,7 @@ function proceed() {
 				}
 				break;
 
-			case 2:
+			case 1:
 				for (var j = 0; j < installationLinks.length; j++) {
 					a = document.createElement('a');
 					a.href = installationLinks[j].link;
@@ -71,7 +56,7 @@ function proceed() {
 				}
 				break;
 
-			case 3:
+			case 2:
 				for (var j = 0; j < supportPolicyLinks.length; j++) {
 					a = document.createElement('a');
 					a.href = supportPolicyLinks[j].link;
@@ -85,7 +70,7 @@ function proceed() {
 				}
 				break;
 
-			case 4:
+			case 3:
 				for (var j = 0; j < supportForumsLinks.length; j++) {
 					a = document.createElement('a');
 					a.href = supportForumsLinks[j].link;
@@ -99,7 +84,7 @@ function proceed() {
 				}
 				break;
 
-			case 5:
+			case 4:
 			{
 				a = document.createElement('a');
 				a.href = "https://in.liferay.com/web/support/wiki/-/wiki/Main+Global/Service+Level+Response+and+Resolution+Times"
@@ -111,7 +96,7 @@ function proceed() {
 			}
 				break;
 
-			case 6:
+			case 5:
 				var feedbackURLYes = createFeedbackURL("Yes");
 				var feedbackURLNo = createFeedbackURL("No");
 				var d = document.createElement('div');
@@ -144,7 +129,7 @@ function proceed() {
 
 	listDiv.className = "menuList";
 
-	for (i = 0; i < 7; i++) {
+	for (i = 0; i < categoryNames.length; i++) {
 		listDiv.appendChild(outerDiv[i]);
 	}
 
@@ -454,10 +439,6 @@ function proceed() {
 						}
 					}
 					break;
-				case 6:
-					//getRelatedIssuesLinks
-
-					break;
 			}
 		}
 	}
@@ -544,16 +525,14 @@ var appServerMap = new Map(),
 	databaseMap = new Map(),
 	javaMap = new Map(),
 	lrVersionMap = new Map(),
-	osMap = new Map(),
-	relatedIssuesMap = new Map();
+	osMap = new Map();
 
-var arrayOfMaps = [appServerMap, browserMap, componentMap, databaseMap, javaMap, osMap, relatedIssuesMap];
+var arrayOfMaps = [appServerMap, browserMap, componentMap, databaseMap, javaMap, osMap];
 
 var supportPolicyLinks = [],
 	installationLinks = [],
 	troubleshootingLinks = [],
 	supportForumsLinks = [],
-	relatedIssuesLinks = [],
 	feedbackLinkContent = [];
 
 var applicationServerText = "APPLICATION SERVER: ";
@@ -571,7 +550,6 @@ var outerDiv = [];
 var menuItem = [];
 var subMenu = [];
 var categoryNames = [
-	"Related Issues",
 	"Troubleshooting",
 	"How to",
 	"Support Policies",

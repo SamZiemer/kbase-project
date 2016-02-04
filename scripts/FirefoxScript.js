@@ -479,14 +479,14 @@ function proceed() {
 					}
 					break;
 				case 5:
-					if (os in map) {
-						if (map[os][0] !== null) {
-							supportPolicy.link = map[os][0];
+					if (osName in map) {
+						if (map[osName][0] !== null) {
+							supportPolicy.link = map[osName][0];
 							supportPolicy.name = dataArray[1];
 							supportPolicyLinks[supportPolicyLinks.length] = supportPolicy;
 						}
-						if (map[os][1] !== null) {
-							troubleShoot.link = map[os][1];
+						if (map[osName][1] !== null) {
+							troubleShoot.link = map[osName][1];
 							troubleShoot.name = dataArray[1];
 							troubleshootingLinks[troubleshootingLinks.length] = troubleShoot;
 						}

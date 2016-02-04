@@ -29,74 +29,22 @@ function proceed() {
 		var li;
 		switch (i) {
 			case 0:
-				for (var j = 0; j < troubleshootingLinks.length; j++) {
-					a = document.createElement('a');
-					a.href = troubleshootingLinks[j].link;
-					a.text = troubleshootingLinks[j].name;
-					a.target = '_blank';
-					li = document.createElement('li');
-					li.appendChild(a);
-					subMenu[i].appendChild(li);
-
-					addLinksForFeedback(troubleshootingLinks[j].link);
-				}
+				addItems(howToLinks);
 				break;
 
 			case 1:
-				for (var j = 0; j < installationLinks.length; j++) {
-					a = document.createElement('a');
-					a.href = installationLinks[j].link;
-					a.text = installationLinks[j].name;
-					a.target = '_blank';
-					li = document.createElement('li');
-					li.appendChild(a);
-					subMenu[i].appendChild(li);
-
-					addLinksForFeedback(installationLinks[j].link)
-				}
+				addItems(troubleshootingLinks);
 				break;
 
 			case 2:
-				for (var j = 0; j < supportPolicyLinks.length; j++) {
-					a = document.createElement('a');
-					a.href = supportPolicyLinks[j].link;
-					a.text = supportPolicyLinks[j].name;
-					a.target = '_blank';
-					li = document.createElement('li');
-					li.appendChild(a);
-					subMenu[i].appendChild(li);
-
-					addLinksForFeedback(supportPolicyLinks[j].link);
-				}
+				addItems(supportPolicyLinks);
 				break;
 
 			case 3:
-				for (var j = 0; j < supportForumsLinks.length; j++) {
-					a = document.createElement('a');
-					a.href = supportForumsLinks[j].link;
-					a.text = supportForumsLinks[j].name;
-					a.target = '_blank';
-					li = document.createElement('li');
-					li.appendChild(a);
-					subMenu[i].appendChild(li);
-
-					addLinksForFeedback(supportForumsLinks[j]);
-				}
+				addItems(supportForumsLinks);
 				break;
 
 			case 4:
-			{
-				a = document.createElement('a');
-				a.href = "https://in.liferay.com/web/support/wiki/-/wiki/Main+Global/Service+Level+Response+and+Resolution+Times"
-				a.text = "SLA";
-				a.target = '_blank';
-				li = document.createElement('li');
-				li.appendChild(a);
-				subMenu[i].appendChild(li);
-			}
-				break;
-
-			case 5:
 				var feedbackURLYes = createFeedbackURL("Yes");
 				var feedbackURLNo = createFeedbackURL("No");
 				var d = document.createElement('div');
@@ -185,6 +133,13 @@ function proceed() {
 		}\
 		#floatMenu ul div a {\
 			text-decoration:none;\
+		}\
+		.qlAnchor {\
+			width: 200px;\
+			display: block;\
+			white-space: nowrap;\
+			text-overflow: ellipsis;\
+			overflow: hidden;\
 		}";
 
 	var head = document.head;
@@ -297,226 +252,72 @@ function proceed() {
 		return completeFormURL;
 	}
 
+	function addItems(arrayOfLinks){
+		for (var j = 0; j < arrayOfLinks.length; j++) {
+			a = document.createElement('a');
+			a.className = 'qlAnchor';
+			a.href = arrayOfLinks[j].link;
+			a.text = arrayOfLinks[j].name;
+			if (a.text.length > maxChars) {
+				a.title = arrayOfLinks[j].title;
+			}
+			a.target = '_blank';
+			li = document.createElement('li');
+			li.appendChild(a);
+			subMenu[i].appendChild(li);
+
+			addLinksForFeedback(arrayOfLinks[j].link)
+		}
+	}
+
 	function getLinks() {
 		var appServer = dataArray[2].split(" ")[0],
 			browser = dataArray[4].split(" ")[0],
 			component = dataArray[6],
 			db = dataArray[3].split(" ")[0],
 			java = dataArray[5].split(" ")[0],
-			os = dataArray[1].split(" ")[0];
+			version = dataArray[0].split(" ")[0],
+			osName = dataArray[1].split(" ")[0];
 
-		for (var i = 0; i < arrayOfMaps.length; i++) {
-			var map = arrayOfMaps[i];
-			var install = [];
-			var supportPolicy = [];
-			var troubleShoot = [];
-			var supportForums = [];
+		//find correct how to links
+		findLinks(htComponent, howToLinks, component);
+		findLinks(htAppServer, howToLinks, appServer);
 
-			switch (i) {
-				case 0:
-					if (appServer in map) {
-						if (map[appServer][0] !== null) {
-							if (appServer == 'Websphere') {
-								if (dataArray[2].indexOf('8.5')) {
-									install.link = map[appServer][0][0];
-									install.name = dataArray[2];
-									installationLinks[installationLinks.length] = install;
-								} else {
-									install.link = map[appServer][0][1];
-									install.name = dataArray[2];
-									installationLinks[installationLinks.length] = install;
-								}
-							} else if (appServer == 'Weblogic') {
-								if (dataArray[2].indexOf('12')) {
-									install.link = map[appServer][0][0];
-									install.name = dataArray[2];
-									installationLinks[installationLinks.length] = install;
-								} else {
-									install.link = map[appServer][0][1];
-									install.name = dataArray[2];
-									installationLinks[installationLinks.length] = install;
-								}
-							} else {
-								install.link = map[appServer][0];
-								install.name = dataArray[2];
-								installationLinks[installationLinks.length] = install;
-							}
-						}
-						if (map[appServer][1] !== null) {
-							supportPolicy.link = map[appServer][1];
-							supportPolicy.name = dataArray[2];
-							supportPolicyLinks[supportPolicyLinks.length] = supportPolicy;
-						}
-						if (map[appServer][2] !== null) {
-							troubleShoot.link = map[appServer][2];
-							troubleShoot.name = dataArray[2];
-							troubleshootingLinks[troubleshootingLinks.length] = troubleShoot;
-						}
-					}
-					break;
-				case 1:
-					if (browser in map) {
-						if (map[browser][0] !== null) {
-							supportPolicy.link = map[browser][0];
-							supportPolicy.name = dataArray[4];
-							supportPolicyLinks[supportPolicyLinks.length] = supportPolicy;
-						}
-						if (map[browser][1] !== null) {
-							troubleShoot.link = map[browser][1];
-							troubleShoot.name = dataArray[4];
-							troubleshootingLinks[troubleshootingLinks.length] = troubleShoot;
-						}
-					}
-					break;
-				case 2:
-					if (component in map) {
-						if (map[component][0] !== null) {
-							install.link = map[component][0];
-							install.name = dataArray[6];
-							installationLinks[installationLinks.length] = install;
-						}
-						if (map[component][1] !== null) {
-							supportPolicy.link = map[component][1];
-							supportPolicy.name = dataArray[6];
-							supportPolicyLinks[supportPolicyLinks.length] = supportPolicy;
-						}
-						if (map[component][2] !== null) {
-							troubleShoot.link = map[component][2];
-							troubleShoot.name = dataArray[6];
-							troubleshootingLinks[troubleshootingLinks.length] = troubleShoot;
-						}
-						if(map[component][3] !== null) {
-							supportForums.link = map[component][3];
-							supportForums.name = dataArray[6];
-							supportForums.noLink = false;
-							supportForumsLinks[supportForumsLinks.length] = supportForums;
-						} else {
-							supportForums.link = 'https://in.liferay.com/web/support/forums/-/message_boards/category/922867';
-							supportForums.name = 'Support Forums';
-							supportForumsLinks[supportForumsLinks.length] = supportForums;
-						}
-					}
-					break;
-				case 3:
-					if (db in map) {
-						if (map[db][0] !== null) {
-							supportPolicy.link = map[db][0];
-							supportPolicy.name = dataArray[3];
-							supportPolicyLinks[supportPolicyLinks.length] = supportPolicy;
-						}
-						if (map[db][1] !== null) {
-							troubleShoot.link = map[db][1];
-							troubleShoot.name = dataArray[3];
-							troubleshootingLinks[troubleshootingLinks.length] = troubleShoot;
-						}
-					}
-					break;
-				case 4:
-					if (java in map) {
-						if (map[java][0] !== null) {
-							supportPolicy.link = map[java][0];
-							supportPolicy.name = dataArray[5];
-							supportPolicyLinks[supportPolicyLinks.length] = supportPolicy;
-						}
-						if (map[java][1] !== null) {
-							troubleShoot.link = map[java][1];
-							troubleShoot.name = dataArray[5];
-							troubleshootingLinks[troubleshootingLinks.length] = troubleShoot;
-						}
-					}
-					break;
-				case 5:
-					if (os in map) {
-						if (map[os][0] !== null) {
-							supportPolicy.link = map[os][0];
-							supportPolicy.name = dataArray[1];
-							supportPolicyLinks[supportPolicyLinks.length] = supportPolicy;
-						}
-						if (map[os][1] !== null) {
-							troubleShoot.link = map[os][1];
-							troubleShoot.name = dataArray[1];
-							troubleshootingLinks[troubleshootingLinks.length] = troubleShoot;
-						}
-					}
-					break;
+		//find correct support policy links
+		findLinks(spMatrix, supportPolicyLinks, version);
+		findLinks(spSla, supportPolicyLinks, "sla");
+		findLinks(spComponent, supportPolicyLinks, component);
+		findLinks(spAppServer, supportPolicyLinks, appServer);
+		findLinks(spDatabase, supportPolicyLinks, db);
+		findLinks(spJava, supportPolicyLinks, java);
+		findLinks(spBrowser, supportPolicyLinks, browser);
+		findLinks(spOs, supportPolicyLinks, osName);
+
+		//find correct troubleshooting links
+		findLinks(tsComponent, troubleshootingLinks, component);
+		findLinks(tsJava, troubleshootingLinks, java);
+		findLinks(tsBrowser, troubleshootingLinks, browser);
+
+		//find correct forum links
+		findLinks(forumsComponent, supportForumsLinks, component);
+	}
+
+	function findLinks(mapToPullFrom, arrayToAddTo, keyToFind) {
+		var arrayOfLinks = mapToPullFrom[keyToFind];
+		if (arrayOfLinks != null) {
+			for (i = 0; i < arrayOfLinks.length; i++) {
+				var link = [];
+				var info = arrayOfLinks[i].split(',');
+				link.link = info[0];
+				link.name = info[1];
+				link.title = info[1];
+				arrayToAddTo[arrayToAddTo.length] = link;
 			}
 		}
 	}
 }
 
 function addLinksToArrays() {
-	appServerMap['Websphere'] = [['https://dev.liferay.com/discover/deployment/-/knowledge_base/6-2/installing-liferay-on-websphere-8-5', 'https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/installing-liferay-on-websphere-8-0'], 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31534', null];
-	appServerMap['Tomcat'] = ['https://dev.liferay.com/discover/deployment/-/knowledge_base/6-2/installing-liferay-on-tomcat-7', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31522', null];
-	appServerMap['Weblogic'] = [['https://dev.liferay.com/discover/deployment/-/knowledge_base/6-2/installing-liferay-on-oracle-weblogic-12c-12-1-2-and-h', 'https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/installing-liferay-on-oracle-weblogic-10-3', 'https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/installing-liferay-on-weblogic-10'], null, null];
-	appServerMap['JBoss'] = ['https://dev.liferay.com/discover/deployment/-/knowledge_base/6-2/installing-liferay-on-jboss-7-1', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31960', null];
-	appServerMap['Tcat'] = ['https://dev.liferay.com/discover/deployment/-/knowledge_base/6-2/installing-liferay-on-mulesoft-tcat', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32064', null];
-	appServerMap['Glassfish'] = ['https://dev.liferay.com/discover/deployment/-/knowledge_base/6-2/installing-liferay-on-glassfish-4', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31320', null];
-	appServerMap['Resin'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/installing-liferay-on-resin-4', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31988', null];
-	appServerMap['tcServer'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/13554', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32076', null];
-
-	browserMap['Firefox'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32010', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327'];
-	browserMap['Chrome'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31732', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327'];
-	browserMap['Internet'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31762', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327'];
-	browserMap['Safari'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32039', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327'];
-
-	componentMap['Account Administration'] = [null, null, "https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/integrating-liferay-users-into-your-enterprise#ldap", null];
-	componentMap['Activation Key'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36709616", null,"https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36675767","https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36675767",null];
-	componentMap['Authentication'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/40556658", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40359", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14567", "https://in.liferay.com/web/support/forums/-/message_boards/category/4697603"];
-	componentMap['Calendar'] = ["https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/managing-events-and-calendar-resources-with-liferays-c", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40324", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/15145", "https://in.liferay.com/web/support/forums/-/message_boards/category/5951214"];
-	componentMap['Clustering'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/14264973", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14666", "https://in.liferay.com/web/support/forums/-/message_boards/category/16979473"];
-	componentMap['Collaboration Suite'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/collaboration-suite', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40284", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/15089", "https://in.liferay.com/web/support/forums/-/message_boards/category/5951214"];
-	componentMap['Developer Studio'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/27061762", null, null, 'https://in.liferay.com/web/support/forums/-/message_boards/category/4697596'];
-	componentMap['Document Library'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/document-management', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/38992", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30483903", "https://in.liferay.com/web/support/forums/-/message_boards/category/4534050"];
-	componentMap['LAR/Staging'] = ["https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/43449", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14694", "https://in.liferay.com/web/support/forums/-/message_boards/category/5953181"];
-	componentMap['License'] = ['https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36709616', null, 'https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/36675767', null];
-	componentMap['License/Account Setup'] = ['https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36709616', null, 'https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/36675767', null];
-	componentMap['Liferay API'] = ["https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/14262850", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/15200", "https://in.liferay.com/web/support/forums/-/message_boards/category/5950852"];
-	componentMap['Liferay Faces'] = ['https://www.liferay.com/community/liferay-projects/liferay-faces/documentation', null, "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/27733288", "https://in.liferay.com/web/support/forums/-/message_boards/category/5951363"];
-	componentMap['Liferay Mobile SDK'] = ['https://dev.liferay.com/develop/tutorials/-/knowledge_base/6-2/mobile', null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/15277", null];
-	componentMap['Liferay Sync'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/administering-liferay-sync', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40300", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/27528001", "https://in.liferay.com/web/support/forums/-/message_boards/category/5952429"];
-	componentMap['Patch Management'] = ['https://www.liferay.com/group/customer/products/portal/patching', null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14769", null];
-	componentMap['Portal Administration'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30717691", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/18554", "https://in.liferay.com/web/support/forums/-/message_boards/category/4772239"];
-	componentMap['Portal Deployment'] = ['https://dev.liferay.com/discover/deployment', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31470", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485351", "https://in.liferay.com/web/support/forums/-/message_boards/category/4533678"];
-	componentMap['Search/Indexing'] = ["https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/14324221", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40308", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485451", "https://in.liferay.com/web/support/forums/-/message_boards/category/5953181"];
-	componentMap['Security'] = ["https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/40556658", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/25821", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14727", "https://in.liferay.com/web/support/forums/-/message_boards/category/5950866"];
-	componentMap['UI'] = [null, null, "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/43697018", "https://in.liferay.com/web/support/forums/-/message_boards/category/5952679"];
-	componentMap['Upgrade'] = ["https://www.liferay.com/group/customer/kbase/-/knowledge_base/article/27740277", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/14762", "https://in.liferay.com/web/support/forums/-/message_boards/category/17065113"];
-	componentMap['Web Content Management'] = ['https://dev.liferay.com/discover/portal/-/knowledge_base/6-2/web-content-management', "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/40292", "https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/30485750", 'https://in.liferay.com/web/support/forums/-/message_boards/category/4697774'];
-	componentMap['Workflows/Forms'] = ["https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/kaleo-forms-defining-business-processes", null, "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/18545", "https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/22105"];
-
-	databaseMap['Oracle'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31478', null];
-	databaseMap['MySQL'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31470', null];
-	databaseMap['DB2'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31688', null];
-	databaseMap['PostgreSQL'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31644', null];
-	databaseMap['Sybase'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31656', null];
-	databaseMap['SQL'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31668', null];
-
-	javaMap['IBM JDK'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31918', 'https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/24963'];
-	javaMap['Oracle JRockit'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31996', null];
-	javaMap['Java'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31968', null];
-	javaMap['Sun JDK'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31945', null];
-
-	lrVersionMap['6.2'] = ['https://www.liferay.com/documents/14/21598941/Liferay+Portal+6.2+EE+Compatibility+Matrix.pdf/3b3fd878-c954-4acc-bd5f-19fb7eb78210'];
-	lrVersionMap['6.1'] = ['https://www.liferay.com/documents/14/21598941/Liferay+Portal+6.1+EE+Compatibility+Matrix.pdf/fb724548-0d8d-408f-ad01-5acd862c038a'];
-	lrVersionMap['6.0'] = ['https://www.liferay.com/documents/3133562/8435741/Compatibility+Matrix+v6.0.pdf/b58f3e64-30d8-400a-aba3-71c16e439fc9?'];
-	lrVersionMap['5.2'] = ['https://www.liferay.com/documents/3133562/8435737/Compatibility+Matrix+v5.2.pdf/4a81c299-132c-488d-b10e-b7546891a1d2?'];
-	lrVersionMap['5.1'] = ['https://www.liferay.com/documents/3133562/8435733/Support+Matrix+v5.1.pdf/91f9a892-6b3b-4ab2-abdc-14ceb1aceb1f'];
-
-	osMap['Mac'] = [null, null];
-	osMap['Windows'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32055', null];
-	osMap['Red'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31911', null];
-	osMap['AIX'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31895', null];
-	osMap['Debian'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31812', null];
-	osMap['openSUSE'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31840', null];
-	osMap['Ubuntu'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32047', null];
-	osMap['CentOS'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31902', null];
-	osMap['Solaris'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31980', null];
-	osMap['Oracle'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31847', null];
-	osMap['Other'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32112', null];
-	osMap['HP-UX'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31820', null];
-	osMap['General'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32318', null];
-	osMap['Linux'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32318', null];
-
 	htComponent['Account Administration'] = [null];
 	htComponent['Activation Key'] = ['https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/36709616,Activation Key Deployment'];
 	htComponent['Authentication'] = ['https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/40556658,SAML Start Guide for 6.1+','https://dev.liferay.com/discover/portal/-/knowledge_base/6-1/integrating-liferay-users-into-your-enterprise#ldap,Integrating Liferay Users','https://www.liferay.com/group/customer/knowledge/kb/-/knowledge_base/article/15472222,NTLM Setup'];
@@ -704,6 +505,8 @@ var opSystemText = "OPERATING SYSTEM:  ";
 var browserText = "PRIMARY BROWSER:  ";
 var javaText = "JAVA VIRTUAL MACHINE: ";
 
+var maxChars = 28;
+
 var dataArray = [];
 
 var floatMenu = document.createElement('div');
@@ -711,10 +514,9 @@ var outerDiv = [];
 var menuItem = [];
 var subMenu = [];
 var categoryNames = [
+	"How To",
 	"Troubleshooting",
-	"How to",
 	"Support Policies",
 	"Product Support Forums",
-	"Service Level Agreement",
 	"Was this tool helpful?"
 ];

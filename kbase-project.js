@@ -90,7 +90,7 @@ function proceed() {
 
 	floatMenu.appendChild(listDiv);
 
-	hideButton.innerHTML = "<img src='https://cdn3.iconfinder.com/data/icons/musthave/256/Add.png' style='width:20px;height:20px;'>";
+	hideButton.innerHTML = plus;
 	hideButton.onclick = showOrHideMenu;
 
 	document.body.appendChild(hideButton);
@@ -256,12 +256,12 @@ function proceed() {
 	function showOrHideMenu() {
 		if (hidden) {
 			document.getElementById("floatMenu").style.width = "200px";
-			hideButton.innerHTML = "<img src='http://www.iconsdb.com/icons/preview/royal-blue/minus-xxl.png' style='width:20px;height:20px;'>";
+			hideButton.innerHTML = minus;
 			hidden = false;
 		}
 		else {
 			document.getElementById("floatMenu").style.width = "0px";
-			hideButton.innerHTML = "<img src='https://cdn3.iconfinder.com/data/icons/musthave/256/Add.png' style='width:20px;height:20px;'>";
+			hideButton.innerHTML = plus;
 			hidden = true;
 		}
 	}
@@ -518,6 +518,9 @@ var lrVersionText = "LIFERAY VERSION: ";
 var opSystemText = "OPERATING SYSTEM:  ";
 var browserText = "PRIMARY BROWSER:  ";
 var javaText = "JAVA VIRTUAL MACHINE: ";
+
+var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Add.png' style='width:20px;height:20px;'>";
+var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/minus-xxl.png' style='width:20px;height:20px;'>";
 
 var maxChars = 28;
 

@@ -3,7 +3,7 @@
 // @namespace   LESA KBase v1.5
 // @description kbase v1.5
 // @include     https://www.liferay.com/web/*/support?*
-// @author      Sam Ziember & Steven Smith
+// @author      Sam Ziemer & Steven Smith
 // @version     1
 // @grant       none
 // ==/UserScript==

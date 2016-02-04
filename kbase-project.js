@@ -1,5 +1,4 @@
-var collapsedOnStart = true;
-var collapsed = collapsedOnStart;
+var hidden = true;
 
 window.addEventListener('load', function() {
 	var jq = document.createElement('script');
@@ -14,6 +13,7 @@ function proceed() {
 	addLinksToArrays();
 	getLinks();
 	floatMenu.id = "floatMenu";
+	hideButton.id = "hideButton";
 
 	for (var i = 0; i < categoryNames.length; i++) {
 		outerDiv[i] = document.createElement('div');
@@ -90,6 +90,10 @@ function proceed() {
 
 	floatMenu.appendChild(listDiv);
 
+	hideButton.innerHTML = "<img src='https://cdn3.iconfinder.com/data/icons/musthave/256/Add.png' style='width:20px;height:20px;'>";
+	hideButton.onclick = showOrHideMenu;
+
+	document.body.appendChild(hideButton);
 	document.body.appendChild(floatMenu);
 
 	/*jshint multistr: true */
@@ -97,7 +101,7 @@ function proceed() {
 			position:fixed;\
 			top:15%;\
 			right:0px;\
-			width:200px;\
+			width:0px;\
 			background-color:#FFF;\
 			margin:0;\
 			padding:0;\
@@ -119,6 +123,14 @@ function proceed() {
 			margin:0;\
 			padding:0;\
 			list-style:none;\
+		}\
+		#hideButton {\
+			position:fixed;\
+			top:12%;\
+			right:0px;\
+			width:40px;\
+			margin:0;\
+			padding:0;\
 		}\
 		.menuItem {\
 			background-color:#FFF;\
@@ -155,10 +167,6 @@ function proceed() {
 	head.appendChild(style);
 
 	jQuery(function() {
-        if(collapsedOnStart){
-            jQuery('.menuList').hide();
-            floatMenu.className = "";//"rotate";
-        }
 		jQuery('.menuItem').click(function() {
 			$menuItem = jQuery(this);
 			$subMenu = $menuItem.next();
@@ -170,13 +178,6 @@ function proceed() {
 		jQuery('.menuHeader').click(function() {
 			jQuery('.subMenu').hide();
 			jQuery('.menuList').slideToggle(500);
-            collapsed = collapsed ^ true;
-            
-            if (collapsed) {
-                floatMenu.className = "";//"rotate";
-            } else {
-                floatMenu.className = "";
-            }
 		});
 	});
 
@@ -250,6 +251,19 @@ function proceed() {
 		}
 
 		return completeFormURL;
+	}
+
+	function showOrHideMenu() {
+		if (hidden) {
+			document.getElementById("floatMenu").style.width = "200px";
+			hideButton.innerHTML = "<img src='http://www.iconsdb.com/icons/preview/royal-blue/minus-xxl.png' style='width:20px;height:20px;'>";
+			hidden = false;
+		}
+		else {
+			document.getElementById("floatMenu").style.width = "0px";
+			hideButton.innerHTML = "<img src='https://cdn3.iconfinder.com/data/icons/musthave/256/Add.png' style='width:20px;height:20px;'>";
+			hidden = true;
+		}
 	}
 
 	function addItems(arrayOfLinks){
@@ -510,6 +524,8 @@ var maxChars = 28;
 var dataArray = [];
 
 var floatMenu = document.createElement('div');
+var hideButton = document.createElement('div');
+
 var outerDiv = [];
 var menuItem = [];
 var subMenu = [];

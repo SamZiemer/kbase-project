@@ -29,22 +29,21 @@ function proceed() {
 		var li;
 		switch (i) {
 			case 0:
-				addItems(howToLinks);
-				break;
-
-			case 1:
 				addItems(troubleshootingLinks);
 				break;
-
+			case 1:
+				addItems(howToLinks);
+				break;
 			case 2:
 				addItems(supportPolicyLinks);
 				break;
-
 			case 3:
 				addItems(supportForumsLinks);
 				break;
-
 			case 4:
+				addItems(slaLinks);
+				break;
+			case 5:
 				var feedbackURLYes = createFeedbackURL("Yes");
 				var feedbackURLNo = createFeedbackURL("No");
 				var d = document.createElement('div');
@@ -65,7 +64,6 @@ function proceed() {
 				d.appendChild(s);
 				d.appendChild(b);
 				subMenu[i].appendChild(d);
-
 				break;
 		}
 
@@ -299,7 +297,7 @@ function proceed() {
 
 		//find correct support policy links
 		findLinks(spMatrix, supportPolicyLinks, version);
-		findLinks(spSla, supportPolicyLinks, "sla");
+		findLinks(spSla, slaLinks, "sla");
 		findLinks(spComponent, supportPolicyLinks, component);
 		findLinks(spAppServer, supportPolicyLinks, appServer);
 		findLinks(spDatabase, supportPolicyLinks, db);
@@ -509,6 +507,7 @@ var supportPolicyLinks = [],
 	howToLinks = [],
 	troubleshootingLinks = [],
 	supportForumsLinks = [],
+	slaLinks = [],
 	feedbackLinkContent = [];
 
 var applicationServerText = "APPLICATION SERVER: ";
@@ -533,9 +532,10 @@ var outerDiv = [];
 var menuItem = [];
 var subMenu = [];
 var categoryNames = [
-	"How To",
 	"Troubleshooting",
+	"How To",
 	"Support Policies",
 	"Product Support Forums",
+	"Service Level Agreement",
 	"Was this tool helpful?"
 ];

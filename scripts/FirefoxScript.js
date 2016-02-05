@@ -7,7 +7,6 @@
 // @version     2
 // @grant       none
 // ==/UserScript==
-
 var hidden = true;
 
 window.addEventListener('load', function() {
@@ -326,7 +325,7 @@ function proceed() {
 
 	function findLinks(mapToPullFrom, arrayToAddTo, keyToFind) {
 		var arrayOfLinks = mapToPullFrom[keyToFind];
-		if (arrayOfLinks != null) {
+		if ((arrayOfLinks != undefined) && (arrayOfLinks[0] != null)) {
 			for (i = 0; i < arrayOfLinks.length; i++) {
 				var link = [];
 				var info = arrayOfLinks[i].split(',');
@@ -426,7 +425,7 @@ function addLinksToArrays() {
 
 	spBrowser['FireFox'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32010,Firefox Support Policy'];
 	spBrowser['Chrome'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31732,Chrome Support'];
-	spBrowser['Internet Explorer'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31762,IE Support Policy'];
+	spBrowser['IE'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/31762,IE Support Policy'];
 	spBrowser['Safari'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32039,Safari Support Policy'];
 
 	spOs['Windows'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/32055,Windows'];
@@ -466,10 +465,11 @@ function addLinksToArrays() {
 	tsComponent['Workflows/Forms'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/18545,Kaleo Workflow Issues','https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/22105,Kaleo Forms Issues'];
 
 	tsJava['IBM'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/24963,JDK Issues','https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/47529,IBM J9 JDK Issues'];
+	tsJava['Java'] = [null];
 
 	tsBrowser['Firefox'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327,Approaching Browser Support Issues'];
 	tsBrowser['Chrome'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327,Approaching Browser Support Issues'];
-	tsBrowser['Internet Explorer'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327,Approaching Browser Support Issues'];
+	tsBrowser['IE'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327,Approaching Browser Support Issues'];
 	tsBrowser['Safari'] = ['https://support-kb.liferay.com/web/knowledge/knowledge-base/-/knowledge_base/article/28327,Approaching Browser Support Issues'];
 
 	forumsComponent['Account Administration'] = [null];
@@ -549,4 +549,3 @@ var categoryNames = [
 	"Service Level Agreement",
 	"Was this tool helpful?"
 ];
-

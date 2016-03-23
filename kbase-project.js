@@ -30,45 +30,54 @@ function proceed() {
 		switch (i) {
 			case 0:
 				addItems(troubleshootingLinks);
+				outerDiv[i].appendChild(menuItem[i]);
+				outerDiv[i].appendChild(subMenu[i]);
 				break;
 			case 1:
 				addItems(howToLinks);
+				outerDiv[i].appendChild(menuItem[i]);
+				outerDiv[i].appendChild(subMenu[i]);
 				break;
 			case 2:
 				addItems(supportPolicyLinks);
+				outerDiv[i].appendChild(menuItem[i]);
+				outerDiv[i].appendChild(subMenu[i]);
 				break;
 			case 3:
 				addItems(supportForumsLinks);
+				outerDiv[i].appendChild(menuItem[i]);
+				outerDiv[i].appendChild(subMenu[i]);
 				break;
 			case 4:
 				addItems(slaLinks);
+				a = document.createElement('a');
+				a.href = slaLinks[0].link;
+				a.text = slaLinks[0].name;
+				if (a.text.length > maxChars) {
+					a.title = slaLinks[0].title;
+				}
+				a.target = '_blank';
+				menuItem[i].className = 'slaLink';
+				menuItem[i].innerHTML = '';
+				menuItem[i].appendChild(a);
+				outerDiv[i].appendChild(menuItem[i]);
+				addLinksForFeedback(slaLinks[0].link)
 				break;
 			case 5:
-				var feedbackURLYes = createFeedbackURL("Yes");
-				var feedbackURLNo = createFeedbackURL("No");
+				var feedbackURL = createFeedbackURL("Yes");
 				var d = document.createElement('div');
-				var s = document.createElement('span');
-				s.innerText = " - or - ";
-
 				a = document.createElement('a');
-				a.href = feedbackURLYes;
-				a.text = "Yes";
+				a.href = feedbackURL;
+				a.text = "Was this tool helpful?";
 				a.target = '_blank';
 
-				var b = document.createElement('a');
-				b.href = feedbackURLNo;
-				b.text = "No";
-				b.target = '_blank';
-
 				d.appendChild(a);
-				d.appendChild(s);
-				d.appendChild(b);
-				subMenu[i].appendChild(d);
+				menuItem[i].innerHTML = '';
+				menuItem[i].className = 'feedBackLink';
+				menuItem[i].appendChild(d);
+				outerDiv[i].appendChild(menuItem[i]);
 				break;
 		}
-
-		outerDiv[i].appendChild(menuItem[i]);
-		outerDiv[i].appendChild(subMenu[i]);
 	}
 
 	var listDiv = document.createElement('div');
@@ -150,6 +159,14 @@ function proceed() {
 			white-space: nowrap;\
 			text-overflow: ellipsis;\
 			overflow: hidden;\
+		}\
+		.slaLink {\
+			font-weight: bold;\
+			border-top: 1px solid #ddd;\
+		}\
+		.feedBackLink {\
+			font-weight: bold;\
+			border-bottom: 1px solid #ddd;\
 		}";
 
 	var head = document.head;
@@ -239,8 +256,6 @@ function proceed() {
 		var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/viewform";
 
 		var completeFormURL = baseGoogleFormURL + "?entry.321334840=" + customerId;
-
-		completeFormURL = completeFormURL + "&entry.1983029939=" + answer +"&" ;
 
 		completeFormURL = completeFormURL + "&entry.1550379905=";
 
@@ -368,7 +383,7 @@ function addLinksToArrays() {
 	spMatrix['5.2'] = ['https://www.liferay.com/documents/3133562/8435737/Compatibility+Matrix+v5.2.pdf/4a81c299-132c-488d-b10e-b7546891a1d2?,5.2 EE Matrix'];
 	spMatrix['5.1'] = ['https://www.liferay.com/documents/3133562/8435733/Support+Matrix+v5.1.pdf/91f9a892-6b3b-4ab2-abdc-14ceb1aceb1f,5.1 EE Matrix'];
 
-	spSla['sla'] = ['https://in.liferay.com/web/support/wiki/-/wiki/Main+Global/Service+Level+Response+and+Resolution+Times,SLA'];
+	spSla['sla'] = ['https://in.liferay.com/web/support/wiki/-/wiki/Main+Global/Service+Level+Response+and+Resolution+Times,Service Level Agreement'];
 
 	spComponent['Account Administration'] = ['https://in.liferay.com/web/support/wiki/-/wiki/Main+Global/Handling+New+Developer+Requests+On+LESA,Handling Developer Requests SOP'];
 	spComponent['Activation Key'] = ['https://in.liferay.com/web/support/wiki/-/wiki/Main+Global/License+Provisioning+SOP,Provisioning SOP'];

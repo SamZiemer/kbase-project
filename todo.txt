@@ -1,2 +1,2 @@
-1. Add property to script to allow the choice of having the menu collapsed or expanded by default.
-2. Research and implement a way to track links clicked from the extension.
+1. Add LESA 2.0 compatability
+2. Add functionality to pull links directly from spreadsheet for quicker updating of links.

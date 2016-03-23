@@ -1,4 +1,5 @@
 var hidden = true;
+var collapsed = false;
 
 window.addEventListener('load', function() {
 	var jq = document.createElement('script');
@@ -190,9 +191,14 @@ function proceed() {
 	});
 
 	jQuery(function() {
-		jQuery('.menuHeader').click(function() {
-			jQuery('.subMenu').hide();
-			jQuery('.menuList').slideToggle(500);
+		jQuery('.menuHeader').click(function () {
+			if (collapsed) {
+				jQuery('.subMenu').show();
+				collapsed =  false;
+			} else {
+				jQuery('.subMenu').hide();
+				collapsed = true;
+			}
 		});
 	});
 

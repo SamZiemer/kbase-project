@@ -17,12 +17,12 @@ var collapsed = false;
 //}, false);
 
 function when_external_loaded (callback) {
- if (typeof gapi === 'undefined' || typeof jq === 'undefined') {
-    setTimeout (function () {when_external_loaded (callback);}, 300);
-  } 
-  else {  
-    callback (); 
-  }
+	if (typeof gapi === 'undefined' || typeof jq === 'undefined') {
+		setTimeout (function () {when_external_loaded (callback);}, 300);
+	} 
+	else {  
+		callback (); 
+	}
 }
 
 function addLinksToPage() {
@@ -325,116 +325,118 @@ function getEnvironmentInfo(serverInfo, typeNode) {
 }
 
 function checkAuth() {
-  gapi.auth.authorize(
-    {
-      'client_id': CLIENT_ID,
-      'scope': SCOPES.join(' '),
-      'immediate': true
-    }, handleAuthResult);
+	gapi.auth.authorize(
+	{
+		'client_id': CLIENT_ID,
+		'scope': SCOPES.join(' '),
+		'immediate': true
+	}, handleAuthResult);
 }
 	
 function handleAuthResult(authResult) {
-  if (authResult && !authResult.error) {
-    callScriptFunction();
-  }
+	if (authResult && !authResult.error) {
+		callScriptFunction();
+	}
 }
 	
 function callScriptFunction() {
-  var scriptId = "MbHSVdQlFcfulpL8J3JgzSeewchXXmC_b";
+	var scriptId = "MbHSVdQlFcfulpL8J3JgzSeewchXXmC_b";
 
-  var request = {
-      'function': 'getContent'
-      };
+	var request = {
+		'function': 'getContent'
+	};
 
-  var op = gapi.client.request({
-      'root': 'https://script.googleapis.com',
-      'path': 'v1/scripts/' + scriptId + ':run',
-      'method': 'POST',
-      'body': request
-  });
+	var op = gapi.client.request({
+		'root': 'https://script.googleapis.com',
+		'path': 'v1/scripts/' + scriptId + ':run',
+		'method': 'POST',
+		'body': request
+	});
 
-  op.execute(function(resp) {
-    if (resp.error && resp.error.status) {
-      console.log('Error calling API:');
-      console.log(JSON.stringify(resp, null, 2));
-    } else if (resp.error) {
-      var error = resp.error.details[0];
-      console.log('Script error message: ' + error.errorMessage);
+	op.execute(function(resp) {
+		if (resp.error && resp.error.status) {
+			console.log('Error calling API:');
+			console.log(JSON.stringify(resp, null, 2));
+		}
+		else if (resp.error) {
+			var error = resp.error.details[0];
+			console.log('Script error message: ' + error.errorMessage);
 
-      if (error.scriptStackTraceElements) {
-        console.log('Script error stacktrace:');
-        
-        for (var i = 0; i < error.scriptStackTraceElements.length; i++) {
-          var trace = error.scriptStackTraceElements[i];
-          console.log('\t' + trace.function + ':' + trace.lineNumber);
-        }
-      }
-    } else {
-      var result = resp.response.result;
+			if (error.scriptStackTraceElements) {
+				console.log('Script error stacktrace:');
 
-      buildLinkArrays(result);
-      addLinksToPage();
-    }
-  });
+				for (var i = 0; i < error.scriptStackTraceElements.length; i++) {
+					var trace = error.scriptStackTraceElements[i];
+					console.log('\t' + trace.function + ':' + trace.lineNumber);
+				}
+			}
+		}
+		else {
+			var result = resp.response.result;
+
+			buildLinkArrays(result);
+			addLinksToPage();
+		}
+	});
 }
 
 function buildLinkArrays(result) {
 	var entries = Object.keys(result).map(function (key) {
-        return result[key];
-    });
+		return result[key];
+	});
 
-    if (Object.keys(entries).length == 0) {
-        console.log('No results');
-    } 
-    else {	        
-      Object.keys(entries).forEach(function(id){
-          var linkType = entries[id][1];
-          var field = entries[id][2];
-          var linkFieldCategory = field.substring(0, field.indexOf("|")).trim();
-          var linkFieldValue = field.substring(field.indexOf("|")+1, field.length).trim();
-          var linkName = entries[id][3];
-          var linkURL = entries[id][4];
+	if (Object.keys(entries).length == 0) {
+		console.log('No results');
+	} 
+	else {	        
+		Object.keys(entries).forEach(function(id){
+			var linkType = entries[id][1];
+			var field = entries[id][2];
+			var linkFieldCategory = field.substring(0, field.indexOf("|")).trim();
+			var linkFieldValue = field.substring(field.indexOf("|")+1, field.length).trim();
+			var linkName = entries[id][3];
+			var linkURL = entries[id][4];
 
-          if (linkFieldCategory == "Application Server") {
-            if (environmentInfo[_APP_SERVER].split(" ")[0] == linkFieldValue) {
-              addLinkToArray(linkType, linkName, linkURL);
-            }
-          }
-          else if (linkFieldCategory == "Browser") {
-            if (environmentInfo[_BROWSER].split(" ")[0] == linkFieldValue) {
-              addLinkToArray(linkType, linkName, linkURL);
-            }
-          }
-          else if (linkFieldCategory == "Component") {
-            if (environmentInfo[_COMPONENT].split(" ")[0] == linkFieldValue) {
-              addLinkToArray(linkType, linkName, linkURL);
-            }
-          }
-          else if (linkFieldCategory == "Database") {
-            if (environmentInfo[_DATABASE].split(" ")[0] == linkFieldValue) {
-              addLinkToArray(linkType, linkName, linkURL);
-            }
-          }
-          else if (linkFieldCategory == "Java") {
-            if (environmentInfo[_JVM].split(" ")[0] == linkFieldValue) {
-              addLinkToArray(linkType, linkName, linkURL);
-            }
-          }
-          else if (linkFieldCategory == "Operating System") {
-            if (environmentInfo[_OS].split(" ")[0] == linkFieldValue) {
-              addLinkToArray(linkType, linkName, linkURL);
-            }
-          }
-          else if (linkFieldCategory == "Version") {
-            if (environmentInfo[_VERSION].split(" ")[0] == linkFieldValue) {
-              addLinkToArray(linkType, linkName, linkURL);
-            }
-          }
-          else if (linkType == "SLA") {
-          	addLinkToArray(linkType, linkName, linkURL);
-          }  
-      });
-    }
+			if (linkFieldCategory == "Application Server") {
+				if (environmentInfo[_APP_SERVER].split(" ")[0] == linkFieldValue) {
+					addLinkToArray(linkType, linkName, linkURL);
+				}
+			}
+			else if (linkFieldCategory == "Browser") {
+				if (environmentInfo[_BROWSER].split(" ")[0] == linkFieldValue) {
+					addLinkToArray(linkType, linkName, linkURL);
+				}
+			}
+			else if (linkFieldCategory == "Component") {
+				if (environmentInfo[_COMPONENT].split(" ")[0] == linkFieldValue) {
+					addLinkToArray(linkType, linkName, linkURL);
+				}
+			}
+			else if (linkFieldCategory == "Database") {
+				if (environmentInfo[_DATABASE].split(" ")[0] == linkFieldValue) {
+					addLinkToArray(linkType, linkName, linkURL);
+				}
+			}
+			else if (linkFieldCategory == "Java") {
+				if (environmentInfo[_JVM].split(" ")[0] == linkFieldValue) {
+					addLinkToArray(linkType, linkName, linkURL);
+				}
+			}
+			else if (linkFieldCategory == "Operating System") {
+				if (environmentInfo[_OS].split(" ")[0] == linkFieldValue) {
+					addLinkToArray(linkType, linkName, linkURL);
+				}
+			}
+			else if (linkFieldCategory == "Version") {
+				if (environmentInfo[_VERSION].split(" ")[0] == linkFieldValue) {
+					addLinkToArray(linkType, linkName, linkURL);
+				}
+			}
+			else if (linkType == "SLA") {
+				addLinkToArray(linkType, linkName, linkURL);
+			}  
+		});
+	}
 }
 
 function addLinkToArray(linkType, linkName, linkURL) {

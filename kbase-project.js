@@ -1,18 +1,20 @@
 var hidden = true;
 var collapsed = false;
 
-var jq = document.createElement('script');
-jq.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js";
+//window.addEventListener('load', function() {
+	var jq = document.createElement('script');
+	jq.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js";
 
-var gapisrc = document.createElement('script');
-gapisrc.src = "https://apis.google.com/js/client.js";
+	var gapisrc = document.createElement('script');
+	gapisrc.src = "https://apis.google.com/js/client.js";
 
-document.querySelector('head').appendChild(jq).appendChild(gapisrc);
+	document.querySelector('head').appendChild(jq).appendChild(gapisrc);
 
-when_external_loaded (function () {
-    getEnvironmentInfo();
-    checkAuth(); 
-});
+	when_external_loaded (function () {
+    	getEnvironmentInfo();
+    	checkAuth(); 
+	});
+//}, false);
 
 function when_external_loaded (callback) {
  if (typeof gapi === 'undefined' || typeof jq === 'undefined') {

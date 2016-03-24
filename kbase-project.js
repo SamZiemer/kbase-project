@@ -427,7 +427,10 @@ function buildLinkArrays(result) {
             if (environmentInfo[_VERSION].split(" ")[0] == linkFieldValue) {
               addLinkToArray(linkType, linkName, linkURL);
             }
-          }   
+          }
+          else if (linkType == "SLA") {
+          	addLinkToArray(linkType, linkName, linkURL);
+          }  
       });
     }
 }

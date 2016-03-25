@@ -1,1 +1,0 @@
-- need a way to get the component from LESA 2 to match the components on the spreadsheet

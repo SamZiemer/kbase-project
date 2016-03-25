@@ -377,11 +377,11 @@ function getEnvironmentInfoLESA2() {
 			}
 
 			function filterComponent(path) {
-				var indexOfUnderscore = path.indexOf("_");
-				var indexOfPeriod = path.indexOf(".");
-				var component = path.substring(indexOfUnderscore + 1, indexOfPeriod);
+				var indexOfImagesDirectory = path.indexOf("images/");
+				var indexOfextension = path.indexOf(".png");
+				var componentKey = path.substring(indexOfImagesDirectory + 7, indexOfextension);
 				
-				component = component.replace("_", " ");
+				var component = lesa2ComponentMap[componentKey];
 
 				return component;
 			}
@@ -601,3 +601,34 @@ var categoryNames = [
 	"Service Level Agreement",
 	"Was this tool helpful?"
 ];
+
+var lesa2ComponentMap = {
+	"component_account_administration" : "Account Administration",
+	"component_activation_key" : "Activation Key",
+	"component_authentication" : "Authentication",
+	"component_calendar" : "Calendar",
+	"component_clustering" : "Clustering",
+	"component_collaboration_suite" : "Collaboration Suite",
+	"component_custom_development" : "Custom Development",
+	"component_developer_studio" : "Developer Studio",
+	"component_document_library" : "Document Library",
+	"component_lar_staging" : "LAR/Staging",
+	"component_license" : "License/Account Setup",
+	"component_license_account_setup" : "License/Account Setup",
+	"component_liferay_api" : "Liferay API",
+	"component_liferay_connected_services" : "Liferay Connected Services",
+	"component_liferay_faces" : "Liferay Faces",
+	"component_liferay_mobile_sdk" : "Liferay Mobile SDK",
+	"component_liferay_sync" : "Liferay Sync",
+	"component_other" : "Other",
+	"component_patch_management" : "Patch Management",
+	"component_portal_administration" : "Portal Administration",
+	"component_portal_deployment" : "Portal Deployment",
+	"component_search_indexing" : "Search/Indexing",
+	"component_security" : "Security",
+	"component_social_office" : "Social Office",
+	"component_ui" : "UI",
+	"component_upgrade" : "Upgrade",
+	"component_web_content_management" : "Web Content Management",
+	"component_workflows_forms" : "Workflows/Forms"
+};

@@ -1,5 +1,6 @@
 var hidden = true;
 var collapsed = false;
+var isLESA1;
 
 //window.addEventListener('load', function() {
 	var jq = document.createElement('script');
@@ -10,8 +11,21 @@ var collapsed = false;
 
 	document.querySelector('head').appendChild(jq).appendChild(gapisrc);
 
+	if (document.getElementsByClassName("lesa-nav").length == 0) {
+		isLESA1 = true;
+	}
+	else {
+		isLESA1 = false;
+	}
+	
 	when_external_loaded (function () {
-    	getEnvironmentInfo();
+		if (isLESA1 == true){
+    		getEnvironmentInfoLESA1();
+    	}
+    	else {
+    		getEnvironmentInfoLESA2();
+    	}
+    	
     	checkAuth(); 
 	});
 //}, false);
@@ -129,6 +143,7 @@ function addLinksToPage() {
 			font-size:15px;\
 			border-left:1px solid #ddd;\
 			border-right:1px solid #ddd;\
+			z-index: 999;\
 		}\
 		#floatMenu h3 {\
 			color:black;\
@@ -152,6 +167,7 @@ function addLinksToPage() {
 			width:40px;\
 			margin:0;\
 			padding:0;\
+			z-index: 999;\
 		}\
 		.menuItem {\
 			background-color:#FFF;\
@@ -278,7 +294,8 @@ function getCustomerId() {
 	return customerId[0];
 }
 
-function getEnvironmentInfo(serverInfo, typeNode) {
+function getEnvironmentInfoLESA1(serverInfo, typeNode) {
+	console.log('L1');
 	AUI().use('aui-base', 'node',
 		function(A) {
 			function serverType(serverInfo) {
@@ -319,6 +336,62 @@ function getEnvironmentInfo(serverInfo, typeNode) {
 			typeNode = A.all(".callout-content");
 			
 			environmentInfo[_COMPONENT] = serverType(_COMPONENT, typeNode);
+			environmentInfo[_CUSTOMER_ID] = getCustomerId();
+		}
+	);
+}
+
+function getEnvironmentInfoLESA2() {
+	AUI().use('aui-base', 'node',
+		function(A) {
+			function serverDetails(typeNode) {
+				var childNodes = typeNode.children;
+
+				for (var i = 0; i < childNodes.length; i++) {
+					var divNode = childNodes[i];
+					var txtUpSpan = divNode.childNodes[1].innerHTML;
+					var txtSbSpan = divNode.childNodes[3].innerHTML;
+
+					if (txtUpSpan == "LR:") {
+						environmentInfo[_VERSION] = txtSbSpan;
+					} 
+					else if (txtUpSpan == "OS:") {
+						environmentInfo[_OS] = txtSbSpan;
+					} 
+					else if (txtUpSpan == "AS:") {
+						environmentInfo[_APP_SERVER] = txtSbSpan;
+					} 
+					else if (txtUpSpan == "DB:") {
+						environmentInfo[_DATABASE] = txtSbSpan;
+					} 
+					else if (txtUpSpan == "JVM:") {
+						environmentInfo[_JVM] = txtSbSpan;
+					}
+				}
+
+				var spanNode = divNode.childNodes[3];
+
+				return spanNode.innerHTML;
+			}
+
+			function filterComponent(path) {
+				var indexOfUnderscore = path.indexOf("_");
+				var indexOfPeriod = path.indexOf(".");
+				var component = path.substring(indexOfUnderscore + 1, indexOfPeriod);
+				
+				component = component.replace("_", " ");
+
+				return component;
+			}
+
+			var nodeList = A.all(".sub-section.last");
+			var typeNode = nodeList._nodes[0];
+			serverDetails(typeNode);
+			environmentInfo[_BROWSER] = 'Chrome';//browser currently not shown on lesa 2.0
+			nodeList = A.all(".ticket-img");
+			typeNode = nodeList._nodes[0];
+			var componentPath = typeNode.attributes[2].nodeValue;
+			environmentInfo[_COMPONENT] = filterComponent(componentPath);
 			environmentInfo[_CUSTOMER_ID] = getCustomerId();
 		}
 	);

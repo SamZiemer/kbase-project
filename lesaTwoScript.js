@@ -93,6 +93,10 @@ function proceed() {
 
 	h3.className = 'menuHeader';
 	h3.innerHTML = "Quick Links";
+	var expandAllSpan = document.createElement("span");
+	expandAllSpan.id = "expandAll";
+	expandAllSpan.innerHTML = " (-)";
+	h3.appendChild(expandAllSpan);
 
 	floatMenu.appendChild(h3);
 
@@ -169,6 +173,10 @@ function proceed() {
 		.feedBackLink {\
 			font-weight: bold;\
 			border-bottom: 1px solid #808080;\
+		}\
+		#expandAll {\
+			cursor:pointer;\
+			color:blue;\
 		}";
 
 	var head = document.head;
@@ -194,9 +202,11 @@ function proceed() {
 	jQuery(function() {
 		jQuery('.menuHeader').click(function () {
 			if (collapsed) {
+				document.getElementById("expandAll").innerHTML = " (-)";
 				jQuery('.subMenu').show();
 				collapsed =  false;
 			} else {
+				document.getElementById("expandAll").innerHTML = " (+)";
 				jQuery('.subMenu').hide();
 				collapsed = true;
 			}

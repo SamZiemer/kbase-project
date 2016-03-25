@@ -1,5 +1,3 @@
-- add a small "expand/collapse all" label
-
 - need a way to get the component from LESA 2 to match the components on the spreadsheet
 -- using environmentInfo[_X].split(" ")[0] doesnt work for field values that actually have a space in them. ie 'Portal Administration' or 'SQL Server'
 -- make sure that fields on spreadsheet match fields in lesa: these are the fields that can be selected for a LESA search:

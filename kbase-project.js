@@ -294,26 +294,25 @@ function getCustomerId() {
 	return customerId[0];
 }
 
-function getEnvironmentInfoLESA1(serverInfo, typeNode) {
-	console.log('L1');
+function getEnvironmentInfoLESA1(fieldLabel, divNode) {
 	AUI().use('aui-base', 'node',
 		function(A) {
-			function serverType(serverInfo) {
+			function getFieldValue(fieldLabel) {
 				var field = '';
-				var serverTypeNode = typeNode;
+				var selectedNode = divNode;
 
-				serverTypeNode.each(
+				selectedNode.each(
 					function() {
 						var innerHTML = this.get('textContent');
 						
-						if (innerHTML.toUpperCase().indexOf(serverInfo) > -1) {
+						if (innerHTML.toUpperCase().indexOf(fieldLabel) > -1) {
 							field = innerHTML;
 						}
 					}
 				);
 
 				if (field) {
-					var begin = field.toUpperCase().indexOf(serverInfo) + serverInfo.length;
+					var begin = field.toUpperCase().indexOf(fieldLabel) + fieldLabel.length;
 					var end = field.indexOf('  ', begin);
 
 					field = field.substring(begin, end);
@@ -321,21 +320,21 @@ function getEnvironmentInfoLESA1(serverInfo, typeNode) {
 					return field.toString().trim();
 				}
 
-				return serverType;
+				return getFieldValue;
 			}
 
-			var typeNode = A.all(".content-column-content");
+			var divNode = A.all(".content-column-content");
 
-			environmentInfo[_VERSION] = serverType(_VERSION, typeNode);
-			environmentInfo[_OS] = serverType(_OS, typeNode);
-			environmentInfo[_APP_SERVER] = serverType(_APP_SERVER, typeNode);
-			environmentInfo[_DATABASE] = serverType(_DATABASE, typeNode);
-			environmentInfo[_BROWSER] = serverType(_BROWSER, typeNode);
-			environmentInfo[_JVM] = serverType(_JVM, typeNode);
+			environmentInfo[_VERSION] = getFieldValue(_VERSION_LABEL, divNode);
+			environmentInfo[_OS] = getFieldValue(_OS_LABEL, divNode);
+			environmentInfo[_APP_SERVER] = getFieldValue(_APP_SERVER_LABEL, divNode);
+			environmentInfo[_DATABASE] = getFieldValue(_DATABASE_LABEL, divNode);
+			environmentInfo[_BROWSER] = getFieldValue(_BROWSER_LABEL, divNode);
+			environmentInfo[_JVM] = getFieldValue(_JVM_LABEL, divNode);
 
-			typeNode = A.all(".callout-content");
+			divNode = A.all(".callout-content");
 			
-			environmentInfo[_COMPONENT] = serverType(_COMPONENT, typeNode);
+			environmentInfo[_COMPONENT] = getFieldValue(_COMPONENT_LABEL, divNode);
 			environmentInfo[_CUSTOMER_ID] = getCustomerId();
 		}
 	);
@@ -483,7 +482,7 @@ function buildLinkArrays(result) {
 				}
 			}
 			else if (linkFieldCategory == "Component") {
-				if (environmentInfo[_COMPONENT].split(" ")[0] == linkFieldValue) {
+				if (environmentInfo[_COMPONENT] == linkFieldValue) {
 					addLinkToArray(linkType, linkName, linkURL);
 				}
 			}
@@ -547,14 +546,22 @@ var CLIENT_ID = '731283778825-bg34j8714me62po5hd72e6fdgs8ma8u2.apps.googleuserco
 
 var SCOPES = ['https://www.googleapis.com/auth/drive'];	
 
-var _APP_SERVER = "APPLICATION SERVER: ";
-var _COMPONENT = "COMPONENT: ";
-var _DATABASE = "DATABASE: ";
-var _VERSION = "LIFERAY VERSION: ";
-var _OS = "OPERATING SYSTEM:  ";
-var _BROWSER = "PRIMARY BROWSER:  ";
-var _JVM = "JAVA VIRTUAL MACHINE: ";
-var _CUSTOMER_ID = "customer_id";
+var _APP_SERVER_LABEL = "APPLICATION SERVER: ";
+var _COMPONENT_LABEL = "COMPONENT: ";
+var _DATABASE_LABEL = "DATABASE: ";
+var _VERSION_LABEL = "LIFERAY VERSION: ";
+var _OS_LABEL = "OPERATING SYSTEM:  ";
+var _BROWSER_LABEL = "PRIMARY BROWSER:  ";
+var _JVM_LABEL = "JAVA VIRTUAL MACHINE: ";
+
+var _APP_SERVER = "as";
+var _COMPONENT = "comp";
+var _DATABASE = "db";
+var _VERSION = "ver";
+var _OS = "os";
+var _BROWSER = "br";
+var _JVM = "jvm";
+var _CUSTOMER_ID = "cid";
 
 var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Add.png' style='width:20px;height:20px;'>";
 var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/minus-xxl.png' style='width:20px;height:20px;'>";

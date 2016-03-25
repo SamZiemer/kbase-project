@@ -420,6 +420,14 @@ function handleAuthResult(authResult) {
 	if (authResult && !authResult.error) {
 		callScriptFunction();
 	}
+	else {
+		gapi.auth.authorize(
+		{
+			'client_id': CLIENT_ID,
+			'scope': SCOPES.join(' '),
+			'immediate': false
+		}, handleAuthResult);
+	}
 }
 	
 function callScriptFunction() {

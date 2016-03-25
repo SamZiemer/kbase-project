@@ -446,71 +446,88 @@ function callScriptFunction() {
 			}
 		}
 		else {
-			var result = resp.response.result;
+			var spreadsheetData = resp.response.result;
 
-			buildLinkArrays(result);
+			buildLinkArrays(spreadsheetData);
 			addLinksToPage();
 		}
 	});
 }
 
-function buildLinkArrays(result) {
-	var entries = Object.keys(result).map(function (key) {
-		return result[key];
+function buildLinkArrays(spreadsheetData) {
+	var links = Object.keys(spreadsheetData).map(function (key) {
+		return spreadsheetData[key];
 	});
 
-	if (Object.keys(entries).length == 0) {
+	if (Object.keys(links).length == 0) {
 		console.log('No results');
 	} 
 	else {	        
-		Object.keys(entries).forEach(function(id){
-			var linkType = entries[id][1];
-			var field = entries[id][2];
-			var linkFieldCategory = field.substring(0, field.indexOf("|")).trim();
-			var linkFieldValue = field.substring(field.indexOf("|")+1, field.length).trim();
-			var linkName = entries[id][3];
-			var linkURL = entries[id][4];
+		Object.keys(links).forEach(function(id){
+			var linkType = links[id][1];
+			var linkField = links[id][2];
+			var linkName = links[id][3];
+			var linkURL = links[id][4];
+			
+			var linkFieldCategory = linkField.substring(0, linkField.indexOf("|")).trim();
+			var linkFieldValue = linkField.substring(linkField.indexOf("|") + 1, linkField.length).trim();
 
-			if (linkFieldCategory == "Application Server") {
-				if (environmentInfo[_APP_SERVER].split(" ")[0] == linkFieldValue) {
+			if (linkFieldCategory == "Application Server" && getFieldValue(environmentInfo[_APP_SERVER]) == linkFieldValue) {
 					addLinkToArray(linkType, linkName, linkURL);
-				}
 			}
-			else if (linkFieldCategory == "Browser") {
-				if (environmentInfo[_BROWSER].split(" ")[0] == linkFieldValue) {
+			else if (linkFieldCategory == "Browser" && getFieldValue(environmentInfo[_BROWSER]) == linkFieldValue) {
 					addLinkToArray(linkType, linkName, linkURL);
-				}
 			}
-			else if (linkFieldCategory == "Component") {
-				if (environmentInfo[_COMPONENT] == linkFieldValue) {
+			else if (linkFieldCategory == "Component" && environmentInfo[_COMPONENT] == linkFieldValue) { //dont need to get field value
 					addLinkToArray(linkType, linkName, linkURL);
-				}
 			}
-			else if (linkFieldCategory == "Database") {
-				if (environmentInfo[_DATABASE].split(" ")[0] == linkFieldValue) {
+			else if (linkFieldCategory == "Database" && getFieldValue(environmentInfo[_DATABASE]) == linkFieldValue) {
 					addLinkToArray(linkType, linkName, linkURL);
-				}
 			}
-			else if (linkFieldCategory == "Java") {
-				if (environmentInfo[_JVM].split(" ")[0] == linkFieldValue) {
+			else if (linkFieldCategory == "Java" && getFieldValue(environmentInfo[_JVM]) == linkFieldValue) {
 					addLinkToArray(linkType, linkName, linkURL);
-				}
 			}
-			else if (linkFieldCategory == "Operating System") {
-				if (environmentInfo[_OS].split(" ")[0] == linkFieldValue) {
+			else if (linkFieldCategory == "Operating System" && getFieldValue(environmentInfo[_OS]) == linkFieldValue) {
 					addLinkToArray(linkType, linkName, linkURL);
-				}
 			}
-			else if (linkFieldCategory == "Version") {
-				if (environmentInfo[_VERSION].split(" ")[0] == linkFieldValue) {
+			else if (linkFieldCategory == "Version" && environmentInfo[_VERSION].split(" ")[0] == linkFieldValue) { //just split
 					addLinkToArray(linkType, linkName, linkURL);
-				}
 			}
 			else if (linkType == "SLA") {
 				addLinkToArray(linkType, linkName, linkURL);
 			}  
 		});
 	}
+}
+
+function getFieldValue(environmentInfo) {
+	var parts = environmentInfo.split(" ");
+
+	var value = "";
+
+	for (var i = 0; i < parts.length; i++) {
+		var part = parts[i];
+
+		if (!part.startsWith(0) && 
+			!part.startsWith(1) && 
+			!part.startsWith(2) && 
+			!part.startsWith(3) && 
+			!part.startsWith(4) && 
+			!part.startsWith(5) && 
+			!part.startsWith(6) && 
+			!part.startsWith(7) && 
+			!part.startsWith(8) && 
+			!part.startsWith(9) && 
+			!part.startsWith("XP")) {
+
+			value += part + " ";
+		}
+		else {
+			return value.trim();
+		}
+	}
+
+	return value.trim();
 }
 
 function addLinkToArray(linkType, linkName, linkURL) {

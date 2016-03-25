@@ -423,7 +423,7 @@ function handleAuthResult(authResult) {
 }
 	
 function callScriptFunction() {
-	var scriptId = "MbHSVdQlFcfulpL8J3JgzSeewchXXmC_b";
+	var scriptId = "M_jnd1LBYSCFvPFiN-aoE-hxEVvr31_if";
 
 	var request = {
 		'function': 'getContent'
@@ -568,9 +568,9 @@ var troubleshootingLinks = [],
 	slaLinks = [],
 	feedbackLinkContent = [];
 
-var CLIENT_ID = '731283778825-bg34j8714me62po5hd72e6fdgs8ma8u2.apps.googleusercontent.com';
+var CLIENT_ID = '12976204622-agilvbcprbbceveuj11harusc13cmhfb.apps.googleusercontent.com';
 
-var SCOPES = ['https://www.googleapis.com/auth/drive'];	
+var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];	
 
 var _APP_SERVER_LABEL = "APPLICATION SERVER: ";
 var _COMPONENT_LABEL = "COMPONENT: ";

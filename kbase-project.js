@@ -128,6 +128,7 @@ function addLinksToPage() {
 	floatMenu.appendChild(h3);
 
 	floatMenu.appendChild(listDiv);
+	floatMenu.hidden = true;
 
 	hideButton.innerHTML = plus;
 	hideButton.onclick = showOrHideMenu;
@@ -140,7 +141,7 @@ function addLinksToPage() {
 			position:fixed;\
 			top:15%;\
 			right:0px;\
-			width:0px;\
+			width:200px;\
 			background-color:#FFF;\
 			margin:0;\
 			padding:0;\
@@ -262,12 +263,12 @@ function addLinksToPage() {
 
 	function showOrHideMenu() {
 		if (hidden) {
-			document.getElementById("floatMenu").style.width = "200px";
+			document.getElementById("floatMenu").hidden = false;
 			hideButton.innerHTML = minus;
 			hidden = false;
 		}
 		else {
-			document.getElementById("floatMenu").style.width = "0px";
+			document.getElementById("floatMenu").hidden = true;
 			hideButton.innerHTML = plus;
 			hidden = true;
 		}

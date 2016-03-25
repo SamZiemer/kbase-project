@@ -114,8 +114,7 @@ function proceed() {
 			margin:0;\
 			padding:0;\
 			font-size:15px;\
-			border-left:1px solid #ddd;\
-			border-right:1px solid #ddd;\
+			border:2px solid #808080;\
 			z-index: 999;\
 		}\
 		#floatMenu h3 {\
@@ -124,8 +123,8 @@ function proceed() {
 			padding:3px;\
 			margin:0;\
 			background-color:#FFF;\
-			border-bottom:1px solid #ddd;\
-			border-top:1px solid #ddd;\
+			border-bottom:1px solid #808080;\
+			border-top:1px solid #808080;\
 			font-size:18px;\
 		}\
 		#floatMenu div {\
@@ -144,14 +143,14 @@ function proceed() {
 		}\
 		.menuItem {\
 			background-color:#FFF;\
-			border-bottom:1px solid #ddd;\
-			border-top:1px solid #ddd;\
+			border-bottom:1px solid #808080;\
+			border-top:1px solid #808080;\
 			font-size:14px;\
 			font-weight:bold;\
 			padding-left:10px;\
 		}\
 		.subMenu {\
-			border-bottom:1px solid #ddd;\
+			border-bottom:1px solid #808080;\
 		}\
 		#floatMenu ul div a {\
 			text-decoration:none;\
@@ -165,11 +164,11 @@ function proceed() {
 		}\
 		.slaLink {\
 			font-weight: bold;\
-			border-top: 1px solid #ddd;\
+			border-top: 1px solid #808080;\
 		}\
 		.feedBackLink {\
 			font-weight: bold;\
-			border-bottom: 1px solid #ddd;\
+			border-bottom: 1px solid #808080;\
 		}";
 
 	var head = document.head;
@@ -223,6 +222,8 @@ function proceed() {
 							dataArray[3] = txtSbSpan;
 						} else if (txtUpSpan == "JVM:") {
 							dataArray[5] = txtSbSpan;
+						} else if (txtUpSpan == "BR:") {
+							dataArray[4] = txtSbSpan;
 						}
 					}
 					var spanNode = divNode.childNodes[3];
@@ -240,7 +241,6 @@ function proceed() {
 				var nodeList = A.all(".sub-section.last");
 				var typeNode = nodeList._nodes[0];
 				serverDetails(typeNode);
-				dataArray[4] = '';//browser currently not shown on lesa 2.0
 				nodeList = A.all(".ticket-img");
 				typeNode = nodeList._nodes[0];
 				var componentPath = typeNode.attributes[2].nodeValue;
@@ -546,7 +546,7 @@ var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project
 
 var maxChars = 28;
 
-var dataArray = [];
+var dataArray = ["", "", "", "", "", "", "", ""];
 
 var floatMenu = document.createElement('div');
 var hideButton = document.createElement('div');

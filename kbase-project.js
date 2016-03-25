@@ -120,6 +120,10 @@ function addLinksToPage() {
 
 	h3.className = 'menuHeader';
 	h3.innerHTML = "Quick Links";
+	var expandAllSpan = document.createElement("span");
+	expandAllSpan.id = "expandAll";
+	expandAllSpan.innerHTML = " (-)";
+	h3.appendChild(expandAllSpan);
 
 	floatMenu.appendChild(h3);
 
@@ -141,8 +145,7 @@ function addLinksToPage() {
 			margin:0;\
 			padding:0;\
 			font-size:15px;\
-			border-left:1px solid #ddd;\
-			border-right:1px solid #ddd;\
+			border:2px solid #808080;\
 			z-index: 999;\
 		}\
 		#floatMenu h3 {\
@@ -151,8 +154,8 @@ function addLinksToPage() {
 			padding:3px;\
 			margin:0;\
 			background-color:#FFF;\
-			border-bottom:1px solid #ddd;\
-			border-top:1px solid #ddd;\
+			border-bottom:1px solid #808080;\
+			border-top:1px solid #808080;\
 			font-size:18px;\
 		}\
 		#floatMenu div {\
@@ -171,14 +174,14 @@ function addLinksToPage() {
 		}\
 		.menuItem {\
 			background-color:#FFF;\
-			border-bottom:1px solid #ddd;\
-			border-top:1px solid #ddd;\
+			border-bottom:1px solid #808080;\
+			border-top:1px solid #808080;\
 			font-size:14px;\
 			font-weight:bold;\
 			padding-left:10px;\
 		}\
 		.subMenu {\
-			border-bottom:1px solid #ddd;\
+			border-bottom:1px solid #808080;\
 		}\
 		#floatMenu ul div a {\
 			text-decoration:none;\
@@ -192,11 +195,15 @@ function addLinksToPage() {
 		}\
 		.slaLink {\
 			font-weight: bold;\
-			border-top: 1px solid #ddd;\
+			border-top: 1px solid #808080;\
 		}\
 		.feedBackLink {\
 			font-weight: bold;\
-			border-bottom: 1px solid #ddd;\
+			border-bottom: 1px solid #808080;\
+		}\
+		#expandAll {\
+			cursor:pointer;\
+			color:blue;\
 		}";
 
 	var head = document.head;
@@ -222,9 +229,11 @@ function addLinksToPage() {
 	jQuery(function() {
 		jQuery('.menuHeader').click(function () {
 			if (collapsed) {
+				document.getElementById("expandAll").innerHTML = " (-)";
 				jQuery('.subMenu').show();
 				collapsed =  false;
 			} else {
+				document.getElementById("expandAll").innerHTML = " (+)";
 				jQuery('.subMenu').hide();
 				collapsed = true;
 			}

@@ -367,6 +367,9 @@ function getEnvironmentInfoLESA2() {
 					else if (txtUpSpan == "JVM:") {
 						environmentInfo[_JVM] = txtSbSpan;
 					}
+					else if (txtUpSpan == "BR:") {
+						environmentInfo[_BROWSER] = txtSbSpan;
+					}
 				}
 
 				var spanNode = divNode.childNodes[3];
@@ -387,7 +390,6 @@ function getEnvironmentInfoLESA2() {
 			var nodeList = A.all(".sub-section.last");
 			var typeNode = nodeList._nodes[0];
 			serverDetails(typeNode);
-			environmentInfo[_BROWSER] = 'Chrome';//browser currently not shown on lesa 2.0
 			nodeList = A.all(".ticket-img");
 			typeNode = nodeList._nodes[0];
 			var componentPath = typeNode.attributes[2].nodeValue;

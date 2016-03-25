@@ -484,7 +484,7 @@ function buildLinkArrays(spreadsheetData) {
 			else if (linkFieldCategory == "Database" && getFieldValue(environmentInfo[_DATABASE]) == linkFieldValue) {
 					addLinkToArray(linkType, linkName, linkURL);
 			}
-			else if (linkFieldCategory == "Java" && getFieldValue(environmentInfo[_JVM]) == linkFieldValue) {
+			else if (linkFieldCategory == "JVM" && getFieldValue(environmentInfo[_JVM]) == linkFieldValue) {
 					addLinkToArray(linkType, linkName, linkURL);
 			}
 			else if (linkFieldCategory == "Operating System" && getFieldValue(environmentInfo[_OS]) == linkFieldValue) {

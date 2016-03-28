@@ -26,7 +26,7 @@ var isLESA1;
     		getEnvironmentInfoLESA2();
     	}
     	
-    	checkAuth(); 
+    	start();
 	});
 //}, false);
 
@@ -408,74 +408,24 @@ function getEnvironmentInfoLESA2() {
 	);
 }
 
-function checkAuth() {
-	gapi.auth.authorize(
-	{
-		'client_id': CLIENT_ID,
-		'scope': SCOPES.join(' '),
-		'immediate': true
-	}, handleAuthResult);
-}
-	
-function handleAuthResult(authResult) {
-	if (authResult && !authResult.error) {
-		callScriptFunction();
-	}
-	else {
-		gapi.auth.authorize(
-		{
-			'client_id': CLIENT_ID,
-			'scope': SCOPES.join(' '),
-			'immediate': false
-		}, handleAuthResult);
-	}
-}
-	
-function callScriptFunction() {
-	var scriptId = "M_jnd1LBYSCFvPFiN-aoE-hxEVvr31_if";
+function start() {
+	var xmlHttp = new XMLHttpRequest();
 
-	var request = {
-		'function': 'getContent'
-	};
-
-	var op = gapi.client.request({
-		'root': 'https://script.googleapis.com',
-		'path': 'v1/scripts/' + scriptId + ':run',
-		'method': 'POST',
-		'body': request
-	});
-
-	op.execute(function(resp) {
-		if (resp.error && resp.error.status) {
-			console.log('Error calling API:');
-			console.log(JSON.stringify(resp, null, 2));
-		}
-		else if (resp.error) {
-			var error = resp.error.details[0];
-			console.log('Script error message: ' + error.errorMessage);
-
-			if (error.scriptStackTraceElements) {
-				console.log('Script error stacktrace:');
-
-				for (var i = 0; i < error.scriptStackTraceElements.length; i++) {
-					var trace = error.scriptStackTraceElements[i];
-					console.log('\t' + trace.function + ':' + trace.lineNumber);
-				}
-			}
-		}
-		else {
-			var spreadsheetData = resp.response.result;
+	xmlHttp.onreadystatechange = function() { 
+		if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+			var spreadsheetData = xmlHttp.responseText;
 
 			buildLinkArrays(spreadsheetData);
-			addLinksToPage();
+			addLinksToPage();			
 		}
-	});
+	}
+
+	xmlHttp.open("GET", "https://script.google.com/macros/s/AKfycbxWxRPjYkm32hlgLD7sHNWhxPcEdximgTebJdzKC3zZ-zH_B9Q/exec", true);
+	xmlHttp.send(null);
 }
 
 function buildLinkArrays(spreadsheetData) {
-	var links = Object.keys(spreadsheetData).map(function (key) {
-		return spreadsheetData[key];
-	});
+	var links = JSON.parse(spreadsheetData);
 
 	if (Object.keys(links).length == 0) {
 		console.log('No results');

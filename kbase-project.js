@@ -468,8 +468,8 @@ function buildLinkArrays(spreadsheetData) {
 	}
 }
 
-function getFieldValue(environmentInfo) {
-	var parts = environmentInfo.split(" ");
+function getFieldValue(environmentField) {
+	var parts = environmentField.split(" ");
 
 	var value = "";
 
@@ -553,7 +553,16 @@ var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project
 
 var maxChars = 28;
 
-var environmentInfo = [];
+var environmentInfo = { 
+	_APP_SERVER : "",
+	_COMPONENT : "",
+	_DATABASE : "",
+	_VERSION : "",
+	_OS : "",
+	_BROWSER : "",
+	_JVM : "",
+	_CUSTOMER_ID : ""
+};
 
 var floatMenu = document.createElement('div');
 var hideButton = document.createElement('div');

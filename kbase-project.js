@@ -32,10 +32,12 @@ var isLESA1;
 
 function when_external_loaded (callback) {
 	if (typeof gapi === 'undefined' || typeof jq === 'undefined') {
-		setTimeout (function () {when_external_loaded (callback);}, 300);
+		setTimeout(function () {
+			when_external_loaded (callback);
+		}, 300);
 	} 
 	else {  
-		callback (); 
+		callback(); 
 	}
 }
 
@@ -441,25 +443,25 @@ function buildLinkArrays(spreadsheetData) {
 			var linkFieldValue = linkField.substring(linkField.indexOf("|") + 1, linkField.length).trim();
 
 			if (linkFieldCategory == "Application Server" && getFieldValue(environmentInfo[_APP_SERVER]) == linkFieldValue) {
-					addLinkToArray(linkType, linkName, linkURL);
+				addLinkToArray(linkType, linkName, linkURL);
 			}
 			else if (linkFieldCategory == "Browser" && getFieldValue(environmentInfo[_BROWSER]) == linkFieldValue) {
-					addLinkToArray(linkType, linkName, linkURL);
+				addLinkToArray(linkType, linkName, linkURL);
 			}
 			else if (linkFieldCategory == "Component" && environmentInfo[_COMPONENT] == linkFieldValue) { //dont need to get field value
-					addLinkToArray(linkType, linkName, linkURL);
+				addLinkToArray(linkType, linkName, linkURL);
 			}
 			else if (linkFieldCategory == "Database" && getFieldValue(environmentInfo[_DATABASE]) == linkFieldValue) {
-					addLinkToArray(linkType, linkName, linkURL);
+				addLinkToArray(linkType, linkName, linkURL);
 			}
 			else if (linkFieldCategory == "JVM" && getFieldValue(environmentInfo[_JVM]) == linkFieldValue) {
-					addLinkToArray(linkType, linkName, linkURL);
+				addLinkToArray(linkType, linkName, linkURL);
 			}
 			else if (linkFieldCategory == "Operating System" && getFieldValue(environmentInfo[_OS]) == linkFieldValue) {
-					addLinkToArray(linkType, linkName, linkURL);
+				addLinkToArray(linkType, linkName, linkURL);
 			}
 			else if (linkFieldCategory == "Version" && environmentInfo[_VERSION].split(" ")[0] == linkFieldValue) { //just split
-					addLinkToArray(linkType, linkName, linkURL);
+				addLinkToArray(linkType, linkName, linkURL);
 			}
 			else if (linkType == "SLA") {
 				addLinkToArray(linkType, linkName, linkURL);
@@ -526,10 +528,6 @@ var troubleshootingLinks = [],
 	supportForumsLinks = [],
 	slaLinks = [],
 	feedbackLinkContent = [];
-
-var CLIENT_ID = '12976204622-agilvbcprbbceveuj11harusc13cmhfb.apps.googleusercontent.com';
-
-var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];	
 
 var _APP_SERVER_LABEL = "APPLICATION SERVER: ";
 var _COMPONENT_LABEL = "COMPONENT: ";

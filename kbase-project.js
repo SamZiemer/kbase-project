@@ -546,21 +546,21 @@ var _BROWSER = "br";
 var _JVM = "jvm";
 var _CUSTOMER_ID = "cid";
 
+var environmentInfo = { 
+	 "as" : "",
+	"comp" : "",
+	 "db" : "",
+	"ver" : "",
+	 "os" : "",
+	 "br" : "",
+	"jvm" : "",
+	"cid" : ""
+};
+
 var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Add.png' style='width:20px;height:20px;'>";
 var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/minus-xxl.png' style='width:20px;height:20px;'>";
 
 var maxChars = 28;
-
-var environmentInfo = { 
-	_APP_SERVER : "",
-	_COMPONENT : "",
-	_DATABASE : "",
-	_VERSION : "",
-	_OS : "",
-	_BROWSER : "",
-	_JVM : "",
-	_CUSTOMER_ID : ""
-};
 
 var floatMenu = document.createElement('div');
 var hideButton = document.createElement('div');

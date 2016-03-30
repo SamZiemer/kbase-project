@@ -59,26 +59,46 @@ function addLinksToPage() {
 		var li;
 		switch (i) {
 			case 0:
+				if (troubleshootingLinks.length == 0) {
+					break;
+				}
+
 				addItems(troubleshootingLinks);
 				outerDiv[i].appendChild(menuItem[i]);
 				outerDiv[i].appendChild(subMenu[i]);
 				break;
 			case 1:
+				if (howToLinks.length == 0) {
+					break;
+				}
+
 				addItems(howToLinks);
 				outerDiv[i].appendChild(menuItem[i]);
 				outerDiv[i].appendChild(subMenu[i]);
 				break;
 			case 2:
+				if (supportPoliciesLinks.length == 0) {
+					break;
+				}
+
 				addItems(supportPoliciesLinks);
 				outerDiv[i].appendChild(menuItem[i]);
 				outerDiv[i].appendChild(subMenu[i]);
 				break;
 			case 3:
+				if (supportForumsLinks.length == 0) {
+					break;
+				}
+				
 				addItems(supportForumsLinks);
 				outerDiv[i].appendChild(menuItem[i]);
 				outerDiv[i].appendChild(subMenu[i]);
 				break;
 			case 4:
+				if (slaLinks.length == 0) {
+					break;
+				}
+				
 				addItems(slaLinks);
 				a = document.createElement('a');
 				a.href = slaLinks[0].link;
@@ -91,10 +111,9 @@ function addLinksToPage() {
 				menuItem[i].innerHTML = '';
 				menuItem[i].appendChild(a);
 				outerDiv[i].appendChild(menuItem[i]);
-				addLinksForFeedback(slaLinks[0].link)
 				break;
 			case 5:
-				var feedbackURL = createFeedbackURL("Yes");
+				var feedbackURL = createFeedbackURL();
 				var d = document.createElement('div');
 				a = document.createElement('a');
 				a.href = feedbackURL;
@@ -119,16 +138,16 @@ function addLinksToPage() {
 	}
 
 	var h3 = document.createElement('h3');
-
 	h3.className = 'menuHeader';
 	h3.innerHTML = "Quick Links";
+	
 	var expandAllSpan = document.createElement("span");
 	expandAllSpan.id = "expandAll";
 	expandAllSpan.innerHTML = " (-)";
+
 	h3.appendChild(expandAllSpan);
 
 	floatMenu.appendChild(h3);
-
 	floatMenu.appendChild(listDiv);
 	floatMenu.hidden = true;
 
@@ -210,12 +229,14 @@ function addLinksToPage() {
 		}";
 
 	var head = document.head;
-	var style = document.createElement('style');
 
+	var style = document.createElement('style');
 	style.type = 'text/css';
+	
 	if (style.styleSheet) {
 		style.styleSheet.cssText = css;
-	} else {
+	}
+	else {
 		style.appendChild(document.createTextNode(css));
 	}
 
@@ -235,7 +256,8 @@ function addLinksToPage() {
 				document.getElementById("expandAll").innerHTML = " (-)";
 				jQuery('.subMenu').show();
 				collapsed =  false;
-			} else {
+			}
+			else {
 				document.getElementById("expandAll").innerHTML = " (+)";
 				jQuery('.subMenu').hide();
 				collapsed = true;
@@ -243,11 +265,11 @@ function addLinksToPage() {
 		});
 	});
 
-	function addLinksForFeedback(linkContent) {
+	function addToLinksForFeedback(linkContent) {
 		feedbackLinkContent[feedbackLinkContent.length] = linkContent;
 	}
 
-	function createFeedbackURL(answer) {
+	function createFeedbackURL() {
 		var customerId = environmentInfo[_CUSTOMER_ID];
 
 		var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/viewform";
@@ -276,7 +298,7 @@ function addLinksToPage() {
 		}
 	}
 
-	function addItems(arrayOfLinks){
+	function addItems(arrayOfLinks) {
 		for (var j = 0; j < arrayOfLinks.length; j++) {
 			a = document.createElement('a');
 			a.className = 'qlAnchor';
@@ -292,7 +314,7 @@ function addLinksToPage() {
 			li.appendChild(a);
 			subMenu[i].appendChild(li);
 
-			addLinksForFeedback(arrayOfLinks[j].link)
+			addToLinksForFeedback(arrayOfLinks[j].link)
 		}
 	}
 }

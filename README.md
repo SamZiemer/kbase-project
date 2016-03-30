@@ -12,6 +12,9 @@
 		<ol>
 			<li>Click on the “Scripts” folder.</li>
 			<li>Click on the file “ChromeKBaseScripts.zip” file to access the raw data.</li>
+				<ul>
+					<li>For version 3, click on "LesaLinksVersion3_Chrome.zip"</li>
+				</ul>
 			<li>Click on the “View Raw” button to download the file.<ul><li>You do not need to extract the files.</li></ul></li>
 			<li>Install the <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en" target="_blank">Tamper Monkey</a> extension to chrome.
 				<ul>

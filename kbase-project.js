@@ -1,43 +1,105 @@
 var hidden = true;
 var collapsed = false;
-var isLESA1;
+
+var troubleshootingLinks = [],
+	howToLinks = [],
+	supportPoliciesLinks = [],
+	supportForumsLinks = [],
+	slaLinks = [],
+	feedbackLinkContent = [];
+
+var _APP_SERVER_LABEL = "APPLICATION SERVER: ";
+var _COMPONENT_LABEL = "COMPONENT: ";
+var _DATABASE_LABEL = "DATABASE: ";
+var _VERSION_LABEL = "LIFERAY VERSION: ";
+var _OS_LABEL = "OPERATING SYSTEM:  ";
+var _BROWSER_LABEL = "PRIMARY BROWSER:  ";
+var _JVM_LABEL = "JAVA VIRTUAL MACHINE: ";
+
+var _APP_SERVER = "as";
+var _COMPONENT = "comp";
+var _DATABASE = "db";
+var _VERSION = "ver";
+var _OS = "os";
+var _BROWSER = "br";
+var _JVM = "jvm";
+var _CUSTOMER_ID = "cid";
+
+var environmentInfo = { 
+	 "as" : "",
+	"comp" : "",
+	 "db" : "",
+	"ver" : "",
+	 "os" : "",
+	 "br" : "",
+	"jvm" : "",
+	"cid" : ""
+};
+
+var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Add.png' style='width:20px;height:20px;'>";
+var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/minus-xxl.png' style='width:20px;height:20px;'>";
+
+var maxChars = 28;
+
+var floatMenu = document.createElement('div');
+var hideButton = document.createElement('div');
+
+var outerDiv = [];
+var menuItem = [];
+var subMenu = [];
+var categoryNames = [
+	"Troubleshooting",
+	"How To",
+	"Support Policies",
+	"Product Support Forums",
+	"Service Level Agreement",
+	"Was this tool helpful?"
+];
+
+var lesa2ComponentMap = {
+	"component_account_administration" : "Account Administration",
+	"component_activation_key" : "Activation Key",
+	"component_authentication" : "Authentication",
+	"component_calendar" : "Calendar",
+	"component_clustering" : "Clustering",
+	"component_collaboration_suite" : "Collaboration Suite",
+	"component_custom_development" : "Custom Development",
+	"component_developer_studio" : "Developer Studio",
+	"component_document_library" : "Document Library",
+	"component_lar_staging" : "LAR/Staging",
+	"component_license" : "License/Account Setup",
+	"component_license_account_setup" : "License/Account Setup",
+	"component_liferay_api" : "Liferay API",
+	"component_liferay_connected_services" : "Liferay Connected Services",
+	"component_liferay_faces" : "Liferay Faces",
+	"component_liferay_mobile_sdk" : "Liferay Mobile SDK",
+	"component_liferay_sync" : "Liferay Sync",
+	"component_other" : "Other",
+	"component_patch_management" : "Patch Management",
+	"component_portal_administration" : "Portal Administration",
+	"component_portal_deployment" : "Portal Deployment",
+	"component_search_indexing" : "Search/Indexing",
+	"component_security" : "Security",
+	"component_social_office" : "Social Office",
+	"component_ui" : "UI",
+	"component_upgrade" : "Upgrade",
+	"component_web_content_management" : "Web Content Management",
+	"component_workflows_forms" : "Workflows/Forms"
+};
 
 var jq = document.createElement('script');
 jq.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js";
 
-var gapisrc = document.createElement('script');
-gapisrc.src = "https://apis.google.com/js/client.js";
-
-document.querySelector('head').appendChild(jq).appendChild(gapisrc);
+document.querySelector('head').appendChild(jq);
 
 if (document.getElementsByClassName("lesa-nav").length == 0) {
-	isLESA1 = true;
+	getEnvironmentInfoLESA1();
 }
 else {
-	isLESA1 = false;
+	getEnvironmentInfoLESA2();
 }
-
-when_external_loaded (function () {
-	if (isLESA1 == true){
-		getEnvironmentInfoLESA1();
-	}
-	else {
-		getEnvironmentInfoLESA2();
-	}
 
 start();
-});
-
-function when_external_loaded (callback) {
-	if (typeof gapi === 'undefined' || typeof jq === 'undefined') {
-		setTimeout(function () {
-			when_external_loaded (callback);
-		}, 300);
-	} 
-	else {  
-		callback(); 
-	}
-}
 
 function addLinksToPage() {
 	floatMenu.id = "floatMenu";
@@ -542,88 +604,4 @@ function addLinkToArray(linkType, linkName, linkURL) {
 	}
 }
 
-var troubleshootingLinks = [],
-	howToLinks = [],
-	supportPoliciesLinks = [],
-	supportForumsLinks = [],
-	slaLinks = [],
-	feedbackLinkContent = [];
 
-var _APP_SERVER_LABEL = "APPLICATION SERVER: ";
-var _COMPONENT_LABEL = "COMPONENT: ";
-var _DATABASE_LABEL = "DATABASE: ";
-var _VERSION_LABEL = "LIFERAY VERSION: ";
-var _OS_LABEL = "OPERATING SYSTEM:  ";
-var _BROWSER_LABEL = "PRIMARY BROWSER:  ";
-var _JVM_LABEL = "JAVA VIRTUAL MACHINE: ";
-
-var _APP_SERVER = "as";
-var _COMPONENT = "comp";
-var _DATABASE = "db";
-var _VERSION = "ver";
-var _OS = "os";
-var _BROWSER = "br";
-var _JVM = "jvm";
-var _CUSTOMER_ID = "cid";
-
-var environmentInfo = { 
-	 "as" : "",
-	"comp" : "",
-	 "db" : "",
-	"ver" : "",
-	 "os" : "",
-	 "br" : "",
-	"jvm" : "",
-	"cid" : ""
-};
-
-var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Add.png' style='width:20px;height:20px;'>";
-var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/minus-xxl.png' style='width:20px;height:20px;'>";
-
-var maxChars = 28;
-
-var floatMenu = document.createElement('div');
-var hideButton = document.createElement('div');
-
-var outerDiv = [];
-var menuItem = [];
-var subMenu = [];
-var categoryNames = [
-	"Troubleshooting",
-	"How To",
-	"Support Policies",
-	"Product Support Forums",
-	"Service Level Agreement",
-	"Was this tool helpful?"
-];
-
-var lesa2ComponentMap = {
-	"component_account_administration" : "Account Administration",
-	"component_activation_key" : "Activation Key",
-	"component_authentication" : "Authentication",
-	"component_calendar" : "Calendar",
-	"component_clustering" : "Clustering",
-	"component_collaboration_suite" : "Collaboration Suite",
-	"component_custom_development" : "Custom Development",
-	"component_developer_studio" : "Developer Studio",
-	"component_document_library" : "Document Library",
-	"component_lar_staging" : "LAR/Staging",
-	"component_license" : "License/Account Setup",
-	"component_license_account_setup" : "License/Account Setup",
-	"component_liferay_api" : "Liferay API",
-	"component_liferay_connected_services" : "Liferay Connected Services",
-	"component_liferay_faces" : "Liferay Faces",
-	"component_liferay_mobile_sdk" : "Liferay Mobile SDK",
-	"component_liferay_sync" : "Liferay Sync",
-	"component_other" : "Other",
-	"component_patch_management" : "Patch Management",
-	"component_portal_administration" : "Portal Administration",
-	"component_portal_deployment" : "Portal Deployment",
-	"component_search_indexing" : "Search/Indexing",
-	"component_security" : "Security",
-	"component_social_office" : "Social Office",
-	"component_ui" : "UI",
-	"component_upgrade" : "Upgrade",
-	"component_web_content_management" : "Web Content Management",
-	"component_workflows_forms" : "Workflows/Forms"
-};

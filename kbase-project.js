@@ -1,60 +1,30 @@
-var hidden = true;
-var collapsed = false;
-
-var troubleshootingLinks = [],
-	howToLinks = [],
-	supportPoliciesLinks = [],
-	supportForumsLinks = [],
-	slaLinks = [],
-	feedbackLinkContent = [];
-
 var _APP_SERVER_LABEL = "APPLICATION SERVER: ";
+var _BROWSER_LABEL = "PRIMARY BROWSER:  ";
 var _COMPONENT_LABEL = "COMPONENT: ";
 var _DATABASE_LABEL = "DATABASE: ";
-var _VERSION_LABEL = "LIFERAY VERSION: ";
-var _OS_LABEL = "OPERATING SYSTEM:  ";
-var _BROWSER_LABEL = "PRIMARY BROWSER:  ";
 var _JVM_LABEL = "JAVA VIRTUAL MACHINE: ";
+var _OS_LABEL = "OPERATING SYSTEM:  ";
+var _VERSION_LABEL = "LIFERAY VERSION: ";
 
 var _APP_SERVER = "as";
-var _COMPONENT = "comp";
-var _DATABASE = "db";
-var _VERSION = "ver";
-var _OS = "os";
 var _BROWSER = "br";
-var _JVM = "jvm";
+var _COMPONENT = "comp";
 var _CUSTOMER_ID = "cid";
+var _DATABASE = "db";
+var _JVM = "jvm";
+var _OS = "os";
+var _VERSION = "ver";
 
 var environmentInfo = {
 	"as" : "",
+	"br" : "",
+	"cid" : ""
 	"comp" : "",
 	"db" : "",
-	"ver" : "",
-	"os" : "",
-	"br" : "",
 	"jvm" : "",
-	"cid" : ""
+	"os" : "",
+	"ver" : "",
 };
-
-var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Plus.png' style='width:20px;height:20px;'>";
-var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Minus.png' style='width:20px;height:20px;'>";
-
-var maxChars = 28;
-
-var floatMenu = document.createElement('div');
-var hideButton = document.createElement('div');
-
-var outerDiv = [];
-var menuItem = [];
-var subMenu = [];
-var categoryNames = [
-	"Troubleshooting",
-	"How To",
-	"Support Policies",
-	"Product Support Forums",
-	"Service Level Agreement",
-	"Was this tool helpful?"
-];
 
 var lesa2ComponentMap = {
 	"component_account_administration" : "Account Administration",
@@ -86,6 +56,33 @@ var lesa2ComponentMap = {
 	"component_web_content_management" : "Web Content Management",
 	"component_workflows_forms" : "Workflows/Forms"
 };
+
+var categoryNames = [
+	"Troubleshooting",
+	"How To",
+	"Support Policies",
+	"Product Support Forums",
+	"Service Level Agreement",
+	"Was this tool helpful?"
+];
+
+var troubleshootingLinks = [],
+	howToLinks = [],
+	supportPoliciesLinks = [],
+	supportForumsLinks = [],
+	slaLinks = [],
+	feedbackLinkContent = [],
+	outerDiv = [],
+	menuItem = [],
+	subMenu = [];
+
+var collapsed = false;
+var floatMenu = document.createElement('div');
+var hidden = true;
+var hideButton = document.createElement('div');
+var maxChars = 28;
+var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Minus.png' style='width:20px;height:20px;'>";
+var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Plus.png' style='width:20px;height:20px;'>";
 
 var jq = document.createElement('script');
 jq.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js";

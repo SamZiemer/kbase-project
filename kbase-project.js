@@ -18,12 +18,12 @@ var _VERSION = "ver";
 var environmentInfo = {
 	"as" : "",
 	"br" : "",
-	"cid" : ""
+	"cid" : "",
 	"comp" : "",
 	"db" : "",
 	"jvm" : "",
 	"os" : "",
-	"ver" : "",
+	"ver" : ""
 };
 
 var lesa2ComponentMap = {

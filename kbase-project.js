@@ -137,6 +137,7 @@ function addLinksToPage() {
 
 		var a;
 		var li;
+		
 		switch (i) {
 			case 0:
 				if (troubleshootingLinks.length == 0) {
@@ -364,35 +365,6 @@ function addLinksToPage() {
 			feedbackLinkContent[feedbackLinkContent.length] = arrayOfLinks[j].link;
 		}
 	}
-
-	function createFeedbackURL() {
-		var customerId = environmentInfo[_CUSTOMER_ID];
-
-		var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/viewform";
-
-		var completeFormURL = baseGoogleFormURL + "?entry.321334840=" + customerId;
-
-		completeFormURL = completeFormURL + "&entry.1550379905=";
-
-		for (var a = 0; a < feedbackLinkContent.length; a++) {
-			completeFormURL = completeFormURL + feedbackLinkContent[a] + " , "
-		}
-
-		return completeFormURL;
-	}
-
-	function showOrHideMenu() {
-		if (hidden) {
-			document.getElementById("floatMenu").hidden = false;
-			hideButton.innerHTML = minus;
-			hidden = false;
-		}
-		else {
-			document.getElementById("floatMenu").hidden = true;
-			hideButton.innerHTML = plus;
-			hidden = true;
-		}
-	}
 }
 
 function buildLinkArrays(spreadsheetData) {
@@ -437,6 +409,22 @@ function buildLinkArrays(spreadsheetData) {
 			}  
 		});
 	}
+}
+
+function createFeedbackURL() {
+	var customerId = environmentInfo[_CUSTOMER_ID];
+
+	var baseGoogleFormURL = "https://docs.google.com/a/liferay.com/forms/d/143TgPw3RGU67t17OO195pb7lhnAVW6o909CWSTKKCso/viewform";
+
+	var completeFormURL = baseGoogleFormURL + "?entry.321334840=" + customerId;
+
+	completeFormURL = completeFormURL + "&entry.1550379905=";
+
+	for (var i = 0; i < feedbackLinkContent.length; i++) {
+		completeFormURL = completeFormURL + feedbackLinkContent[i] + " , "
+	}
+
+	return completeFormURL;
 }
 
 function getCustomerId() {
@@ -580,6 +568,19 @@ function getFieldValue(environmentField) {
 	}
 
 	return value.trim();
+}
+
+function showOrHideMenu() {
+	if (hidden) {
+		document.getElementById("floatMenu").hidden = false;
+		hideButton.innerHTML = minus;
+		hidden = false;
+	}
+	else {
+		document.getElementById("floatMenu").hidden = true;
+		hideButton.innerHTML = plus;
+		hidden = true;
+	}
 }
 
 function start() {

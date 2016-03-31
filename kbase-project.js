@@ -25,19 +25,19 @@ var _BROWSER = "br";
 var _JVM = "jvm";
 var _CUSTOMER_ID = "cid";
 
-var environmentInfo = { 
-	 "as" : "",
+var environmentInfo = {
+	"as" : "",
 	"comp" : "",
-	 "db" : "",
+	"db" : "",
 	"ver" : "",
-	 "os" : "",
-	 "br" : "",
+	"os" : "",
+	"br" : "",
 	"jvm" : "",
 	"cid" : ""
 };
 
-var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Add.png' style='width:20px;height:20px;'>";
-var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/minus-xxl.png' style='width:20px;height:20px;'>";
+var plus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Plus.png' style='width:20px;height:20px;'>";
+var minus = "<img src='https://raw.githubusercontent.com/SamZiemer/kbase-project/master/images/Minus.png' style='width:20px;height:20px;'>";
 
 var maxChars = 28;
 

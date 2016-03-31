@@ -322,10 +322,6 @@ function addLinksToPage() {
 		});
 	});
 
-	function addToLinksForFeedback(linkContent) {
-		feedbackLinkContent[feedbackLinkContent.length] = linkContent;
-	}
-
 	function createFeedbackURL() {
 		var customerId = environmentInfo[_CUSTOMER_ID];
 
@@ -371,7 +367,7 @@ function addLinksToPage() {
 			li.appendChild(a);
 			subMenu[i].appendChild(li);
 
-			addToLinksForFeedback(arrayOfLinks[j].link)
+			feedbackLinkContent[feedbackLinkContent.length] = arrayOfLinks[j].link;
 		}
 	}
 }

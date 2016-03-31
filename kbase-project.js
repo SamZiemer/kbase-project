@@ -98,6 +98,29 @@ else {
 
 start();
 
+
+function addLinkToArray(linkType, linkName, linkURL) {
+	var link = [];
+	link.link = linkURL;
+	link.name = linkName;
+
+	if (linkType == "Troubleshooting") {
+		troubleshootingLinks[troubleshootingLinks.length] = link;
+	}
+	else if (linkType == "How To") {
+		howToLinks[howToLinks.length] = link;
+	}
+	else if (linkType == "Support Policies") {
+		supportPoliciesLinks[supportPoliciesLinks.length] = link;
+	}
+	else if (linkType == "Forums") {
+		supportForumsLinks[supportForumsLinks.length] = link;
+	}
+	else if (linkType == "SLA") {
+		slaLinks[slaLinks.length] = link;
+	}
+}
+
 function addLinksToPage() {
 	floatMenu.id = "floatMenu";
 	hideButton.id = "hideButton";
@@ -120,7 +143,7 @@ function addLinksToPage() {
 					break;
 				}
 
-				addItems(troubleshootingLinks);
+				addLinks(troubleshootingLinks);
 				outerDiv[i].appendChild(menuItem[i]);
 				outerDiv[i].appendChild(subMenu[i]);
 				break;
@@ -129,7 +152,7 @@ function addLinksToPage() {
 					break;
 				}
 
-				addItems(howToLinks);
+				addLinks(howToLinks);
 				outerDiv[i].appendChild(menuItem[i]);
 				outerDiv[i].appendChild(subMenu[i]);
 				break;
@@ -138,7 +161,7 @@ function addLinksToPage() {
 					break;
 				}
 
-				addItems(supportPoliciesLinks);
+				addLinks(supportPoliciesLinks);
 				outerDiv[i].appendChild(menuItem[i]);
 				outerDiv[i].appendChild(subMenu[i]);
 				break;
@@ -147,7 +170,7 @@ function addLinksToPage() {
 					break;
 				}
 				
-				addItems(supportForumsLinks);
+				addLinks(supportForumsLinks);
 				outerDiv[i].appendChild(menuItem[i]);
 				outerDiv[i].appendChild(subMenu[i]);
 				break;
@@ -156,7 +179,7 @@ function addLinksToPage() {
 					break;
 				}
 				
-				addItems(slaLinks);
+				addLinks(slaLinks);
 				a = document.createElement('a');
 				a.href = slaLinks[0].link;
 				a.text = slaLinks[0].name;
@@ -322,6 +345,26 @@ function addLinksToPage() {
 		});
 	});
 
+	function addLinks(arrayOfLinks) {
+		for (var j = 0; j < arrayOfLinks.length; j++) {
+			a = document.createElement('a');
+			a.className = 'qlAnchor';
+			a.href = arrayOfLinks[j].link;
+			a.text = arrayOfLinks[j].name;
+			
+			if (a.text.length > maxChars) {
+				a.title = arrayOfLinks[j].name;
+			}
+			
+			a.target = '_blank';
+			li = document.createElement('li');
+			li.appendChild(a);
+			subMenu[i].appendChild(li);
+
+			feedbackLinkContent[feedbackLinkContent.length] = arrayOfLinks[j].link;
+		}
+	}
+
 	function createFeedbackURL() {
 		var customerId = environmentInfo[_CUSTOMER_ID];
 
@@ -350,25 +393,49 @@ function addLinksToPage() {
 			hidden = true;
 		}
 	}
+}
 
-	function addItems(arrayOfLinks) {
-		for (var j = 0; j < arrayOfLinks.length; j++) {
-			a = document.createElement('a');
-			a.className = 'qlAnchor';
-			a.href = arrayOfLinks[j].link;
-			a.text = arrayOfLinks[j].name;
+function buildLinkArrays(spreadsheetData) {
+	var links = JSON.parse(spreadsheetData);
+
+	if (Object.keys(links).length == 0) {
+		console.log('No results');
+	} 
+	else {	        
+		Object.keys(links).forEach(function(id){
+			var linkType = links[id][1];
+			var linkField = links[id][2];
+			var linkName = links[id][3];
+			var linkURL = links[id][4];
 			
-			if (a.text.length > maxChars) {
-				a.title = arrayOfLinks[j].name;
+			var linkFieldCategory = linkField.substring(0, linkField.indexOf("|")).trim();
+			var linkFieldValue = linkField.substring(linkField.indexOf("|") + 1, linkField.length).trim();
+
+			if (linkFieldCategory == "Application Server" && getFieldValue(environmentInfo[_APP_SERVER]) == linkFieldValue) {
+				addLinkToArray(linkType, linkName, linkURL);
 			}
-			
-			a.target = '_blank';
-			li = document.createElement('li');
-			li.appendChild(a);
-			subMenu[i].appendChild(li);
-
-			feedbackLinkContent[feedbackLinkContent.length] = arrayOfLinks[j].link;
-		}
+			else if (linkFieldCategory == "Browser" && getFieldValue(environmentInfo[_BROWSER]) == linkFieldValue) {
+				addLinkToArray(linkType, linkName, linkURL);
+			}
+			else if (linkFieldCategory == "Component" && environmentInfo[_COMPONENT] == linkFieldValue) { //dont need to get field value
+				addLinkToArray(linkType, linkName, linkURL);
+			}
+			else if (linkFieldCategory == "Database" && getFieldValue(environmentInfo[_DATABASE]) == linkFieldValue) {
+				addLinkToArray(linkType, linkName, linkURL);
+			}
+			else if (linkFieldCategory == "JVM" && getFieldValue(environmentInfo[_JVM]) == linkFieldValue) {
+				addLinkToArray(linkType, linkName, linkURL);
+			}
+			else if (linkFieldCategory == "Operating System" && getFieldValue(environmentInfo[_OS]) == linkFieldValue) {
+				addLinkToArray(linkType, linkName, linkURL);
+			}
+			else if (linkFieldCategory == "Version" && environmentInfo[_VERSION].split(" ")[0] == linkFieldValue) { //just split
+				addLinkToArray(linkType, linkName, linkURL);
+			}
+			else if (linkType == "SLA") {
+				addLinkToArray(linkType, linkName, linkURL);
+			}  
+		});
 	}
 }
 
@@ -485,66 +552,6 @@ function getEnvironmentInfoLESA2() {
 	);
 }
 
-function start() {
-	var xmlHttp = new XMLHttpRequest();
-
-	xmlHttp.onreadystatechange = function() { 
-		if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-			var spreadsheetData = xmlHttp.responseText;
-
-			buildLinkArrays(spreadsheetData);
-			addLinksToPage();			
-		}
-	}
-
-	xmlHttp.open("GET", "https://script.google.com/macros/s/AKfycbxWxRPjYkm32hlgLD7sHNWhxPcEdximgTebJdzKC3zZ-zH_B9Q/exec", true);
-	xmlHttp.send(null);
-}
-
-function buildLinkArrays(spreadsheetData) {
-	var links = JSON.parse(spreadsheetData);
-
-	if (Object.keys(links).length == 0) {
-		console.log('No results');
-	} 
-	else {	        
-		Object.keys(links).forEach(function(id){
-			var linkType = links[id][1];
-			var linkField = links[id][2];
-			var linkName = links[id][3];
-			var linkURL = links[id][4];
-			
-			var linkFieldCategory = linkField.substring(0, linkField.indexOf("|")).trim();
-			var linkFieldValue = linkField.substring(linkField.indexOf("|") + 1, linkField.length).trim();
-
-			if (linkFieldCategory == "Application Server" && getFieldValue(environmentInfo[_APP_SERVER]) == linkFieldValue) {
-				addLinkToArray(linkType, linkName, linkURL);
-			}
-			else if (linkFieldCategory == "Browser" && getFieldValue(environmentInfo[_BROWSER]) == linkFieldValue) {
-				addLinkToArray(linkType, linkName, linkURL);
-			}
-			else if (linkFieldCategory == "Component" && environmentInfo[_COMPONENT] == linkFieldValue) { //dont need to get field value
-				addLinkToArray(linkType, linkName, linkURL);
-			}
-			else if (linkFieldCategory == "Database" && getFieldValue(environmentInfo[_DATABASE]) == linkFieldValue) {
-				addLinkToArray(linkType, linkName, linkURL);
-			}
-			else if (linkFieldCategory == "JVM" && getFieldValue(environmentInfo[_JVM]) == linkFieldValue) {
-				addLinkToArray(linkType, linkName, linkURL);
-			}
-			else if (linkFieldCategory == "Operating System" && getFieldValue(environmentInfo[_OS]) == linkFieldValue) {
-				addLinkToArray(linkType, linkName, linkURL);
-			}
-			else if (linkFieldCategory == "Version" && environmentInfo[_VERSION].split(" ")[0] == linkFieldValue) { //just split
-				addLinkToArray(linkType, linkName, linkURL);
-			}
-			else if (linkType == "SLA") {
-				addLinkToArray(linkType, linkName, linkURL);
-			}  
-		});
-	}
-}
-
 function getFieldValue(environmentField) {
 	var parts = environmentField.split(" ");
 
@@ -575,26 +582,18 @@ function getFieldValue(environmentField) {
 	return value.trim();
 }
 
-function addLinkToArray(linkType, linkName, linkURL) {
-	var link = [];
-	link.link = linkURL;
-	link.name = linkName;
+function start() {
+	var xmlHttp = new XMLHttpRequest();
 
-	if (linkType == "Troubleshooting") {
-		troubleshootingLinks[troubleshootingLinks.length] = link;
+	xmlHttp.onreadystatechange = function() { 
+		if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+			var spreadsheetData = xmlHttp.responseText;
+
+			buildLinkArrays(spreadsheetData);
+			addLinksToPage();			
+		}
 	}
-	else if (linkType == "How To") {
-		howToLinks[howToLinks.length] = link;
-	}
-	else if (linkType == "Support Policies") {
-		supportPoliciesLinks[supportPoliciesLinks.length] = link;
-	}
-	else if (linkType == "Forums") {
-		supportForumsLinks[supportForumsLinks.length] = link;
-	}
-	else if (linkType == "SLA") {
-		slaLinks[slaLinks.length] = link;
-	}
+
+	xmlHttp.open("GET", "https://script.google.com/macros/s/AKfycbxWxRPjYkm32hlgLD7sHNWhxPcEdximgTebJdzKC3zZ-zH_B9Q/exec", true);
+	xmlHttp.send(null);
 }
-
-

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        LESA Links Script V3
 // @namespace   LESA Links v3
-// @include     https://www.liferay.com/web/*/support?*
+// @include     https://web.liferay.com/web/*/support?*
 // @author      Sam Ziemer, Steven Smith, & Bryan Engler
 // @version     3
 // @grant       none
